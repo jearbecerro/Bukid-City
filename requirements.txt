@@ -1,0 +1,7 @@
+pymongo[srv]
+flask
+pymongo
+bcrypt
+pillow
+gunicorn==19.6.0
+request
