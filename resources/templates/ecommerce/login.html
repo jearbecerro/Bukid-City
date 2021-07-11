@@ -1,0 +1,119 @@
+{% include '/ecommerce/index/header.html' %}
+
+    <div class="breadcrumbs_area">
+        <div class="container">   
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                       
+                        <h3>Login</h3>
+                        <ul>
+                            <li style="padding-left: 15px"><a href="/" >home</a></li>
+                            <li><a>login</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>         
+    </div>
+
+        <!-- my account start  -->
+    <section class="main_content_area">
+        <div class="container">   
+            <div class="account_dashboard">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <!-- Nav tabs -->
+                        <div class="dashboard_tab_button">
+                            <ul role="tablist" class="nav flex-column dashboard-list">
+                                <li><a href="#login" data-toggle="tab" class="nav-link active">Login</a></li>
+                                <li> <a href="#farmers_club" data-toggle="tab" class="nav-link">Farmers Club</a></li>
+                                <!--<li><a href="login.html" class="nav-link">logout</a></li>-->
+                            </ul>
+                        </div>    
+                    </div>
+                    <div class="col-sm-12 col-md-9 col-lg-9">
+                        <!-- Tab panes -->
+                        <div class="tab-content dashboard_content">
+                            <div class="tab-pane fade show active" id="login">
+                                <!--login area start-->
+                                <div class="">
+                                    <div class="account_form">
+                                        <h2 style="text-align: center;">login</h2>
+
+                                        <form>
+                                            <center>
+                                                <div class="" style="width: 100%; border-radius: 5px;  background-color: #f44336; opacity: 0.7; color: white;">
+                                                    <p id="login_error_msg"></p>
+                                                </div>
+                                            </center>
+                                            <br>
+                                            <p>   
+                                                <label>Username <span>*</span></label>
+                                                <input type="text" name="username" id="username" placeholder="Username" required>
+                                             </p>
+                                             <p>   
+                                                <label>Passwords <span>*</span></label>
+                                                <input type="password" name="password" id="password" placeholder="Password" required>
+                                             </p>   
+                                            <div class="login_submit">
+                                               <a href="/register">Create an account?</a>
+                                                <label for="remember">
+                                                    <br>
+                                                    <input id="remember" name="remember" type="checkbox">
+                                                    Remember me
+                                                </label>
+                                                <a href="#" id="login_process" style="float: right;"><button>login</button></a>
+                                            </div>
+                                        </form>
+                                     </div>    
+                                </div>
+                                <!--login area start-->
+                            </div>
+                            <div class="tab-pane fade" id="farmers_club">
+
+                                 <!--login area start-->
+                                <div class="">
+                                    <div class="account_form">
+                                        <center>
+                                        <h2>Farmers Club login</h2>
+                                        </center>
+                                        <form>
+                                             <center>
+                                                <div class="" style="width: 100%; border-radius: 5px;  background-color: #f44336; opacity: 0.7; color: white;">
+                                                    <p id="mlm_login_error_msg"></p>
+                                                </div>
+                                            </center>
+                                            <br>
+                                            <p>   
+                                                <label>Username or code <span>*</span></label>
+                                                <input type="text" id="f_username" name="f_username" placeholder="Username" >
+                                             </p>
+                                             <p>   
+                                                <label>Passwords <span>*</span></label>
+                                                <input type="password" id="f_password" name="f_password" placeholder="Password">
+                                             </p>   
+                                             <p>* <i>It will redirect to farmers club landing page.</i></p>
+                                            <div class="login_submit">
+                                                <label for="f_remember">
+                                                    <br>
+                                                    <input id="f_remember" name="f_remember" type="checkbox">
+                                                    Remember me
+                                                </label>
+                                                <a href="#" id="mlm_login_process" style="float: right;"><button>login</button></a>
+                                            </div>
+
+                                        </form>
+                                     </div>    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>          
+    </section>  
+<script src="{{ url_for('static', filename='ecommerce/js/own/show-password.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/login.js') }}"></script>
+{% include '/ecommerce/index/footer.html' %}

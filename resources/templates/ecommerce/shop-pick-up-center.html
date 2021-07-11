@@ -1,0 +1,164 @@
+{% include '/ecommerce/index/header.html' %}
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.css') }}">
+{% include '/ecommerce/shop-pick-up-center/landing-cover-page.html' %}
+
+
+<!-- Load Facebook SDK for JavaScript 
+      <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v7.0'
+          });
+        };
+
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+    -->
+      <!-- Your Chat Plugin code 
+      <div class="fb-customerchat"
+        attribution=setup_tool
+        page_id="101330458266693"
+  theme_color="#67b868"
+  logged_in_greeting="Hi! How can we help you?"
+  logged_out_greeting="Hi! How can we help you?">
+      </div>
+    -->
+
+    <!--shop  area end-->
+    <div class="product_d_info mb-65 " style="padding-top: 20px;">
+      <div class="container" >   
+        <div class="row" >
+          <div class="col-12" >
+            <div class="product_d_inner">   
+              <div class="product_info_button" >   
+                <ul class="nav" role="tablist" >
+
+                  <li >
+                    <a class="active" style=" font-size: 16px"data-toggle="tab" href="#products" role="tab" aria-controls="info" aria-selected="false">Products</a>
+                  </li>
+                  <li>
+                   <a style="font-size: 16px" data-toggle="tab" href="#about" role="tab" aria-controls="sheet" aria-selected="false">About</a>
+                 </li>
+                 <li>
+                   <a style="font-size: 16px" data-toggle="tab" href="#policies" role="tab" aria-controls="sheet" aria-selected="false">Policies</a>
+                 </li>
+                 <li>
+                   <a style=" font-size: 16px" data-toggle="tab" href="#facebook" role="tab" aria-controls="reviews" aria-selected="false">Facebook</a>
+                 </li>
+                 <li>
+                   <a style="font-size: 16px" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
+                 </li>
+               </ul>
+             </div>
+
+             <div class="tab-content">
+
+              <div class="tab-pane fade show active" id="products" role="tabpanel" >
+                {% include '/ecommerce/shop-pick-up-center/products.html' %}
+              </div>
+
+              <div class="tab-pane fade" id="facebook" role="tabpanel" >
+                <div class="product_info_content">
+                  <center>
+                                        <!--
+                                      <div id="fb-root"></div>
+                                      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=489276791806358&autoLogAppEvents=1"></script>
+
+                                      <div class="fb-page" data-href="{{ facebook }}" data-tabs="timeline" data-width="480" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="{{ facebook }}" class="fb-xfbml-parse-ignore"><a href="{{ facebook }}"></a></blockquote></div>
+                                    -->         
+                                  </center>
+                                </div> 
+                              </div>
+
+                              <div class="tab-pane fade" id="about" role="tabpanel" >
+
+                                <div class="product_info_content" align="center">
+                                  <h3>{{ branch_name }} {{ city }} Pick Up Center of Bukid City</h3>
+                                </div>    
+                                <div class="product_info_content" align="center">
+                                  <h4>{{ about }}</h4>
+                                </div>    
+                                
+                                <div class="product_info_content" align="center">
+                                  <p>We are located at:   <i>{{ bldg }}, {{ brgy }}, {{ city }}, {{ province }}</i></p>
+                                </div> 
+                                <br>
+                                <!--contact map start-->
+                                <center>
+                                  <div id="googleMap" style="width:80%;height:300px;"></div>
+                                </center>
+                               <!-- <script>
+                                function myMap() {
+                                  var mapProp= {
+                                  center:new google.maps.LatLng(51.508742,-0.120850),
+                                  zoom:5,
+                                  };
+                                  var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+                                }
+                                </script>
+                                <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+                                contact map end-->
+
+                              </div>
+
+                              <div class="tab-pane fade" id="policies" role="tabpanel" >
+                                {% for policy in policies %}
+                                <div class="product_info_content" align="center" style="background-color: rgba(220,220,220,0.5);">
+                                  <h4>{{ policy.title }}</h4>
+                                  <p>{{ policy.desc }}</p>
+                                </div>    
+                                <br>
+                                {% endfor %}
+                              </div>
+
+                              <div class="tab-pane fade" id="reviews" role="tabpanel" >
+                                <div class="reviews_wrapper">
+                                 <div align="center">
+                                   <h2>Add a review</h2>
+                                   <p>Your comment will be published on your facebook.</p>
+
+                                   <div class="product_ratting mb-10" align="center">
+                                    <ul>
+                                      <li><i class="icon-star"></i></li>
+                                      <li><i class="icon-star"></i></li>
+                                      <li><i class="icon-star"></i></li>
+                                      <li><i class="icon-star"></i></li>
+                                      <li><i class="icon-star"></i></li>
+                                    </ul>
+                                  </div>
+                                           <!--
+                                       <div id="fb-root"></div>
+                                      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=496177857595304&autoLogAppEvents=1" nonce="jqPgsdkJ"></script>
+                                      <div class="fb-comments" data-href="https://bukidcity-beta-testing.herokuapp.com/places/Pick%20Up%20Center%20Name,Butuan-City" data-numposts="100" data-width=""></div>
+                                      <div class="comment_title"></div>
+                                    -->
+                                  </div>
+                                </div>     
+                              </div>
+
+                            </div>
+                          </div>     
+                        </div>
+                      </div>
+                    </div>    
+                  </div>  
+                  <script src="{{ url_for('static', filename='admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+                  <script src="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.js') }}"></script>
+
+                  <script src="{{ url_for('static', filename='ecommerce/js/own/cart_process.js') }}"></script>
+                  <script src="{{ url_for('static', filename='ecommerce/js/own/show-password.js') }}"></script>
+                  <script src="{{ url_for('static', filename='ecommerce/js/own/modal_register.js') }}"></script>
+                  <script src="{{ url_for('static', filename='ecommerce/js/own/modal_login.js') }}"></script>
+                  {% include '/ecommerce/shop-pick-up-center/modal_login.html' %}
+                  {% include '/ecommerce/index/footer.html' %}

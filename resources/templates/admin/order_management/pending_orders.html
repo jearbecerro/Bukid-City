@@ -1,0 +1,253 @@
+{% include '/admin/index/navbar.html' %}  
+{% include '/admin/index/sidebar.html' %}  
+{% include '/admin/index/content-wrapper.html' %} 
+
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/fontawesome-free/css/all.min.css') }}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.css') }}">
+
+ <img alt="" src="{{ url_for('static', filename='../data/gahi.jpg') }}" style="width: 300px;" id ="img"/>
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header border-transparent">
+            <h3 class="card-title">Pending Orders</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <p align="center"><b>FOR ORDER FULFILLMENT</b></p>
+            <i style="font-size: 12px;">Please reload if you want to see newly added orders.</i>
+            <table id="pending_orders" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Ordered</th>
+                  <th>Details</th>
+                  {% if is_distributor_login == True %}<th>Actions</th>{% endif %}
+                </tr>
+              </thead>
+              <tbody class="text-center py-0 align-middle" style="font-size: 14px;">
+                {% for order in pending_orders %}
+                <tr>
+                  <td style="vertical-align: middle;">
+                    {% if order.product_ordered|length >= 3 %}
+                    <div style="height:300px; overflow: auto;">
+                      {% else %}
+                      <div style="height:auto; overflow: auto;">
+                        {% endif %}
+                        <b>Overall Total:</b> {{  order.total }}<br><br>
+                        {% for p_o in order.product_ordered %}
+
+                        <div class="btn btn-app" style="width: 300px; height: auto;">
+                          <span class="badge bg-gray" style="font-size: 12px;">{{ p_o.qty }} {% if p_o.qty == '1' %}pc{% else %}pcs {% endif %}</span>
+                          <div class="float-left">
+                            <img src="{{ url_for('static', filename='ecommerce/img/product/'+p_o.img) }}" alt="Product Deleted" style="width: 80px; height: auto; align-content: left;"></div>
+                            <p style="font-size: 12px; text-align: left; margin-left: 10px;">
+                              <b>Product:</b> {{ p_o.product_name }}<br>
+                              <b>Price:</b> {{ p_o.price }}<br>
+                              <b>Total:</b> {{ p_o.total_price }}
+                            </p>
+                          </div><br>
+                          {% endfor %}
+
+                        </div>
+                      </td>
+                      <td style="vertical-align: middle; text-align: center;">
+                        <hr>
+                        <p>Date: <b>{{ order.date }}</b>
+                          <hr>
+                          Username: @<b>{{ order.username }}</b> | Buyer: <b>{{ order.buyer }}</b>
+                          <hr>
+                          Address:<br>
+                          <b>{{ order.delivery_address }}</b>
+                          <hr>
+                          Contact Number: <b>{{ order.contact_number }}</b>
+                          <hr>
+                          {% if order.order_note|length != 0 %}
+                          <a  href="#" onclick="order_note('{{ order.order_note }}','{{ order.buyer }}')" title="View Order Note"><i class="fas fa-eye"></i> Order Note</a>
+                          {% endif %}
+                        </p>
+                      </td>
+                      {% if is_distributor_login == True %}
+                      <td style="vertical-align: middle;">
+                        <div class="btn-group btn-group-sm">
+                          <a class="btn btn-danger"  href="#" onclick="cancel_order('{{ order._id }}','{{ order.username }}','','admin')" title="Remove from database."><i class="fas fa-trash"></i> Cancel Order</a>
+                        </div>
+                        <br><br>
+                        <div class="btn-group btn-group-sm">
+                          <a class="btn btn-warning"  href="#" onclick="for_delivery('{{ order._id }}','{{ order.username }}')" title="For Delivery">🚚 For Delivery</a>
+                        </div>
+                      </td>
+                      {% endif %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Ordered</th>
+                      <th>Details</th>
+                      {% if is_distributor_login == True %}<th>Actions</th>{% endif %}
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- DataTables -->
+    <script src="{{ url_for('static', filename='admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.js') }}"></script>
+    <script>
+
+      function for_delivery(order_id, username){
+        Swal.fire({
+          title: 'Are you sure this order is for delivery?',
+          text: "Make sure to fulfill the order before transport!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, I already fulfill.'
+        }).then((result) => {
+          if (result.value) {
+            $.getJSON('/for_delivery', {  
+              order_id: order_id,
+              username: username
+            }, function(data) {
+              if(data.error){
+               Toast.fire({
+                icon: 'error',
+                title: "&nbspDon't modify the values!"
+              })
+             }
+             if (data.success == 'True'){
+               Swal.fire(
+                'On Transport',
+                'This order is on transport!',
+                'success'
+                )
+               var seconds = 2;
+               var timer = setInterval(function() {
+                seconds--;
+                if(seconds == 0) {
+                  clearInterval(timer);
+                  window.location.href = '/orders-management/pending-orders';
+                }
+              }, 1000);
+
+             }
+           }); 
+
+          }
+        })
+      }
+
+      function order_note(order_note, name){
+        Swal.fire({
+          title: '<strong>Order Note!</strong>',
+          html: name+' says: "<u>'+ order_note +'</u>"',
+          showCloseButton: true,
+          focusConfirm: false,
+          confirmButtonText:
+          '<i class="fa fa-thumbs-up"></i>',
+          confirmButtonAriaLabel:''
+        })
+      }
+
+      function cancel_order(order_id, username, user, admin){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You will only do this if the buyer canceled the order upon order fulfillment.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, the buyer canceled the order!'
+        }).then((result) => {
+          if (result.value) {
+            $.getJSON('/cancel_order', {  
+              order_id: order_id,
+              username: username,
+              user: user,
+              admin: admin
+            }, function(data) {
+              if(data.error){
+               Toast.fire({
+                icon: 'error',
+                title: "&nbspDon't modify the values!"
+              })
+             }
+             if (data.success == 'True'){
+               Swal.fire(
+                'Canceled!',
+                'The order is remove!'
+                )
+               var seconds = 2;
+               var timer = setInterval(function() {
+                seconds--;
+                if(seconds == 0) {
+                  clearInterval(timer);
+                  if (data.admin == 'True'){
+                    window.location.href = '/orders-management/pending-orders';
+                  }
+                  if (data.admin == 'False'){
+                    window.location.href = '/myaccount';
+                  }
+                }
+              }, 1000);
+
+             }
+           });  
+          }
+        })
+      }
+
+      $(function () {
+
+        $('#pending_orders').DataTable({
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
+          "responsive": true,
+        });
+      });
+
+    </script>
+
+    {% include '/admin/index/footer.html' %} 

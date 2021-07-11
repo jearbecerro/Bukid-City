@@ -1,0 +1,489 @@
+{% include '/ecommerce/index/header.html' %}
+{% include '/ecommerce/shop-landing-page/slider.html' %} 
+
+<!--product area start-->
+    <div class="product_area  mb-64" id="choose">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="product_header">
+                        <div class="section_title">
+                        	<br>
+                           <p>Choose a Pick Up Center</p>
+                           <h2>Select your City</h2>
+                        </div>
+                        <!--regions tab to select-->
+                        {% include '/ecommerce/shop-landing-page/regions-tab.html' %} 
+
+                    </div>
+                </div>
+            </div> 
+          
+            <div class="product_container">  
+               <div class="row">
+                   <div class="col-12">
+                        <div class="tab-content" style="padding-bottom: 40px;">
+                         
+
+							<!--Region I-->
+                            <div class="tab-pane fade show {{ r1 }}" id="regioni" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region1 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--CAR-->
+                            <div class="tab-pane fade show {{ r14 }}" id="car" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in car %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--Region II-->
+                            <div class="tab-pane fade show {{ r2 }}" id="regionii" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region2 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--Region III-->
+                            <div class="tab-pane fade show {{ r3 }}" id="regioniii" role="tabpanel">
+							            <div class="row">
+							            	{% for data in region3 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--Region NCR-->
+                            <div class="tab-pane fade show {{ r13 }}" id="ncr" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in ncr %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+							<!--Region IVA-->
+                            <div class="tab-pane fade show {{ r4a }}" id="regioniva" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region4a %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--Region V-->
+                            <div class="tab-pane fade show {{ r5 }}" id="regionv" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region5 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--MIMAROPA-->
+                            <div class="tab-pane fade show {{ r4b }}" id="mimaropa" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in mimaropa %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--Region VI-->
+                            <div class="tab-pane fade show {{ r6 }}" id="regionvi" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region6 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--Region VII-->
+                            <div class="tab-pane fade show {{ r7 }}" id="regionvii" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region7 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+                        	<!--Region VIII-->
+                            <div class="tab-pane fade show {{ r8 }}" id="regionix" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region8 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--Region IX-->
+                            <div class="tab-pane fade show {{ r9 }}" id="regionix" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region9 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--Region X-->
+                            <div class="tab-pane fade show {{ r10 }}" id="regionx" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region10 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+							        	</div>
+                        	</div>
+
+							<!--Region XI-->
+                            <div class="tab-pane fade show {{ r11 }}" id="regionxi" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region11 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+
+							<!--Region XII-->
+                            <div class="tab-pane fade show {{ r12 }}" id="regionxii" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in region12 %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+                        	<!--Caraga-->
+                            <div class="tab-pane fade show {{ r16 }}" id="caraga" role="tabpanel">
+							            <div class="row">
+							            	{% for data in caraga %}
+							            	{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+
+												{% endif %}
+							                {% endfor %}
+
+							        	</div>
+                        	</div>
+							<!--BARMM-->
+                            <div class="tab-pane fade show {{ r15 }}" id="barmm" role="tabpanel">
+
+							            <div class="row">
+							            	{% for data in barmm %}
+												{% if data|length %}
+								                <div class="col-lg-6 col-md-6" style="padding-bottom: 20px;">
+
+								                    <div class="single_banner" align="center">
+								                        <div class="banner_thumb">
+								                            <a href="/places/{{ data['branch_name'] }},{{ data['city'] }}"><img style="border-radius: 5px; max-width: 540px; max-height: 190px;" src="{{ url_for('static', filename = 'ecommerce/img/distributor/'+ data.banner_image ) }}" alt=""></a> 
+								                        </div>
+								                        <div style="text-align: center;">
+								                        	
+								                        	<a href="{{ data['facebook_page'] }}" target = "_blank" title="Visit Facebook Page"><span class="ion-social-facebook"></span></a>
+								                        	<a href="/places/{{ data['branch_name'] }},{{ data['city'] }}">{{ data['branch_name'] }} || {{ data['city'] }}, {{ data['province'] }}</a>
+	                                                    </div>
+								                    </div>
+								                </div>
+								                {% else %}
+												{% endif %}
+							                {% endfor %}
+							        	</div>
+                        	</div>
+
+                    </div>
+                </div>        
+            </div>   
+
+        </div> 
+        			
+    </div>
+</div>
+{% include '/ecommerce/shop-landing-page/distributor-call-to-action.html' %}
+{% include '/ecommerce/index/footer.html' %}

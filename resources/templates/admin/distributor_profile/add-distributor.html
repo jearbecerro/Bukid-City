@@ -1,0 +1,280 @@
+{% include '/admin/index/navbar.html' %}  
+{% include '/admin/index/sidebar.html' %}  
+{% include '/admin/index/content-wrapper.html' %} 
+
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/fontawesome-free/css/all.min.css') }}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.css') }}">
+
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header border-transparent">
+        <h3 class="card-title">Add Distributor</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-center">
+              <label for="fileimage">
+                <img class="profile-user-img img-fluid img-square" style="width: 350px; height: 250px; border-color: white; border-radius: 10px;" 
+                src="{{ url_for('static', filename= default_img ) }}"
+                alt="Image" id="img" ></label>
+              </div>
+              <br>
+              <div class="form-group">
+                <label>Distributor Logo</label>
+                <form id="uploadform" method="post" enctype="multipart/form-data">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="fileimage" name="fileimage">
+                      <label class="custom-file-label" for="fileimage">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                      <button class="input-group-text" id="uploadImg">Upload</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="icheck-success d-inline">
+                <input type="checkbox" id="defaultLogo" onclick="default_img()">
+                <label for="defaultLogo">
+                  Same as Bukid City's default logo
+                </label>
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <i style="font-size: 13px;">After uploading the images make sure to save the product.</i>
+          </div>
+
+          <div class="form-group">
+            <label>Pick Up Center Name</label>
+            <input type="text" class="form-control" id="branch_name" name="branch_name" placeholder="Pick Up Center Name / Branch Name can be a Brgy.'s Name" >
+          </div>
+
+          <div class="form-group">
+            <label>About</label>
+            <input type="text" class="form-control" id="about" name="about" placeholder="A brief information about the Pick Up Center" >
+          </div>
+
+          <div class="form-group">
+            <label>Facebook Page</label>
+            <input type="text" class="form-control" id="fb_url" name="fb_url" placeholder="Link of Pick Up Center's Facebook">
+          </div>
+
+          <div class="form-group">
+            <label>Policies</label>
+            <textarea  class="form-control" id="policies" name="policies" placeholder='Ex. "Delivery Policy" We only deliver from 8am to 5pm.'></textarea>
+            <i style="font-size: 14px;">To give title to the policy, put it inside double qoutation "Title" before the policy's content</i>
+            <br>
+            <i style="font-size: 13px;">Just hit enter to add more policies.</i>
+          </div>
+
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" class="form-control" id="bldg" name="bldg" placeholder="Bldg/Street Location">
+            <br>
+            <select  class="form-control" name="province" id="province" required>
+              <option value="None">Select Province</option>
+              {% for province in provinces %}
+              <option value="{{ province.provCode }}">{{ province.provDesc }}</option>
+              {% endfor %}
+            </select>
+            <br>
+            <select disabled class="form-control" name="citymun" id="citymun" required>
+              <option value="None">Select City/Municipality</option>
+            </select>
+            <br>
+            <select disabled class="form-control" name="barangay" id="barangay" required>
+              <option value="None">Select Barangay</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Business Partner</label>
+            <input type="text" class="form-control" id="business_partner" name="business_partner" placeholder="The name of distributor's business partner">
+          </div>
+
+          <div id="adding" class="float-right">
+          </div>
+          <div id="div_add" class="float-right">
+            <button id="add" class="btn btn-success">Add</button>
+          </div>
+        </div>
+        <script>
+          function default_img(){
+            if ($('#defaultLogo').is(":checked")){
+              $("#img").attr('src','static/ecommerce/img/distributor/default.jpg');
+            }else{
+              $("#img").attr('src','static/ecommerce/img/distributor/add_distributor.png');
+            }
+          }
+
+          $(function() {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 7000
+            });
+
+            $('#add').bind('click', function(){
+              document.getElementById("div_add").hidden = true;
+              document.getElementById("adding").innerHTML = "<span><i class='fas fa-sync-alt'></i> Adding distributor..<span>";
+              var default_img = '';
+              if ($('#defaultLogo').is(":checked")){
+                default_img = 'default.jpg';
+              }
+              $.getJSON('/add_dist', {  
+                branch_name :$('input[name="branch_name"]').val(),
+                about :$('input[name="about"]').val(),
+                fb_url:$('input[name="fb_url"]').val(),
+                bldg :$('input[name="bldg"]').val(),
+                province : $('#province option:selected').val(),
+                citymun : $('#citymun option:selected').val(),
+                barangay : $('#barangay option:selected').val(),
+                policies: $('textarea[name="policies"]').val(),
+                default_img: default_img,
+                business_partner: $('input[name="business_partner"]').val()
+              }, function(data) {
+                if(data.success == 'Product Added') {
+                  Toast.fire({
+                    icon: 'success',
+                    title: '&nbspSuccessfully Added',
+                  })
+                  $('#branch_name').val('');
+                  $('#about').val('');
+                  $('#fb_url').val('');
+                  $('#bldg').val('');
+                  $('#policies').val('');
+                  $('#business_partner').val('');
+                  $("#img").attr('src', data.img);
+                  document.getElementById('province').value='None';
+                  $("#barangay").append('<option selected="true" disabled>Choose Barangay</option>');
+                  $("#citymun").append('<option selected="true" disabled>Choose City/Municipality</option>');
+                  document.getElementById("citymun").disabled = true;
+                  document.getElementById("barangay").disabled = true;
+                  document.getElementById("div_add").hidden = false;
+                  document.getElementById("adding").innerHTML = "";
+                } else{
+                  Toast.fire({
+                    icon: 'warning',
+                    title: data.errors,
+                  })
+                  document.getElementById("div_add").hidden = false;
+                  document.getElementById("adding").innerHTML = "";
+                }
+              });                  
+              return false;
+            });
+
+            $('#uploadImg').click(function() {
+              classify_uploadImg('#uploadform','/add_dist_product_img', '#img');
+            });
+
+            function classify_uploadImg(form,url,img){
+              event.preventDefault();
+              var form_data = new FormData($(form)[0]);
+
+              files = form_data.fileimage;
+              if (document.getElementById("fileimage").files.length == 0){
+                Toast.fire({
+                  icon: 'error',
+                  title: '&nbsp Please input an image before uploading!',
+                })
+              }
+              else{
+                upload_Img(form, url, img, form_data);
+              }
+            }
+
+            function upload_Img(form,url,img, form_data){
+              $.ajax({
+                type: 'POST',
+                url: url,
+                data: form_data,
+                contentType: false,
+                processData: false,
+                dataType: 'json'
+              }).done(function(data){
+                if (data.error = 'true'){
+                  Toast.fire({
+                    icon: 'warning',
+                    title: '&nbsp File extension not allowed! (png, jpg, jpeg) is the only allowed.',
+                  })
+                }
+                if (data.allowed == 'true'){
+                  $(img).attr('src', data.img_path);
+                  Toast.fire({
+                    icon: 'success',
+                    title: '&nbsp Image Uploaded',
+                  })
+                }
+              }).fail(function(data){
+                Toast.fire({
+                  icon: 'error',
+                  title: '&nbsp Server Error!',
+                })
+              });
+            }
+
+          });
+
+        </script>
+
+      </div>
+      <!-- /.card -->
+    </div>
+
+  </section>
+
+  <script src="{{ url_for('static', filename='admin/js/address_dropdown.js') }}"></script>
+  <script src="{{ url_for('static', filename='admin/plugins/select2/js/select2.full.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.js') }}"></script>
+  <script>
+
+    $(function () {
+      $(document).ready(function () {
+        bsCustomFileInput.init();
+      });
+
+      $('.select2bs4').select2({
+        theme: 'bootstrap4'
+      })
+
+      $('#example').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+
+  </script>
+
+  {% include '/admin/index/footer.html' %} 

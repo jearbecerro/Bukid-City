@@ -1,0 +1,21 @@
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">{{ page }}</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              {% if title != 'Genealogy' and title != 'Payout Management' and title != 'Dashboard'%}
+              <li class="breadcrumb-item"><a href="{% if title == 'Distributor Profile' %} {% else %}{{ main_page }}{% endif %}">{{ title }}</a></li>
+              <li class="breadcrumb-item active">{{ page }}</li>
+              {% endif %}
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->

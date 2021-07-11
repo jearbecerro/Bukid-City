@@ -1,0 +1,289 @@
+{% include '/ecommerce/index/header.html' %}
+
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.css') }}">
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">   
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                 <h3>Checkout</h3>
+                 <ul>
+                    <li><a href="/">home</a></li>
+                    <li>Checkout</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>         
+</div>
+<!--breadcrumbs area end-->
+
+<!--Checkout page section-->
+<div class="Checkout_section mt-70">
+ <div class="container">
+
+    <div class="checkout_form">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <h3>Billing Details</h3>
+                <div class="row" style="padding-left: 10px;">
+                    <div class="col-lg-12 mb-10">
+                        <hr>
+                    </div>
+
+                    <div style="width:98%; border-radius: 5px; background-color: #f44336; opacity: 0.7; color: white;">
+                        <p id="save_profile_error_msg" align="center"></p>
+                    </div>
+                    <div class="" style="width:98%; border-radius: 5px; background-color: #008000 ; opacity: 0.7; color: white;">
+                        <p id="save_profile_success_msg" align="center"></p>
+                    </div>
+
+                    {% if name == '' %} 
+                    <div class="col-lg-12 mb-10" id="yes_info" hidden>
+                        <label>Personal Profile <span>*</span></label><br>
+                        <input id="profile" type="checkbox" onchange="personal_profile()"/>
+                        <label  for="profile">Change?</label>
+                    </div>
+                    <div id="personal_profile" class="col-lg-12 mb-20" style="padding-left: 25px;" hidden>
+                        <p> <label>Full Name:</label> {{ name }}<br> 📱 {{ phone }}&nbsp  📧 {{ email }} </p>
+                    </div>
+
+                    <div id="input_profile" style="padding-left: 70px;">
+                        <div class="col-lg-12 mb-10" align="center">
+                            <label>Personal Profile <span>*</span></label>
+                        </div>
+
+                        <form>
+                            <div class="col-lg-12 mb-20">
+                                <label>Full Name <span>*</span></label>
+                                <input type="text" id="name" name="name" value="" placeholder="Name">    
+                            </div>
+
+                            <div class="col-lg-12 mb-20">
+                                <label>Phone <span>*</span></label>
+                                <input type="text" id="phone" name="phone" value="" placeholder="Phone Number"> 
+
+                            </div> 
+                            <div class="col-lg-12 mb-20">
+                                <label> Email Address   <span>*</span></label> 
+                                <input type="text" id="email" name="email" value="{{ email }}" disabled> 
+                            </div> 
+                            <div class="col-lg-12 mb-20" align="right">
+                             <label><a class="view" id="save_personal_profile"><span>Save</span></a></label>
+                         </div>
+                     </form> 
+                 </div>
+                 {% else %}
+
+                 <div class="col-lg-12 mb-10" id="yes_info">
+                    <label>Personal Profile <span>*</span></label><br>
+                    <input id="profile" type="checkbox" onchange="personal_profile()"/>
+                    <label  for="profile">Change?</label>
+                </div>
+
+                <div id="input_profile" style="padding-left: 70px;" hidden>
+                    <form>
+                        <div class="col-lg-12 mb-10" align="center">
+                            <label>Personal Profile</label>
+                        </div>
+                        <div class="col-lg-12 mb-20">
+                            <label>Full Name <span>*</span></label>
+                            <input type="text" id="name" name="name" placeholder="Name">    
+                        </div>
+
+                        <div class="col-lg-12 mb-20">
+                            <label>Phone <span>*</span></label>
+                            <input type="text" id="phone" name="phone" placeholder="Phone Number"> 
+
+                        </div> 
+                        <div class="col-lg-12 mb-20">
+                            <label> Email Address   <span>*</span></label> 
+                            <input type="text" id="email" name="email" value="{{ email }}" disabled> 
+                        </div> 
+                        <div class="col-lg-12 mb-20" align="right">
+                            <label><a class="view" id="save_personal_profile"><span>Save</span></a></label>
+                        </div> 
+                    </form>
+                </div>
+
+                <div id="personal_profile" class="col-lg-12 mb-20" style="padding-left: 25px;">
+                    <p> <label>Full Name:</label> {{ name }}<br> 📱 {{ phone }}&nbsp  📧 {{ email }} </p>
+                </div>
+                {% endif %}
+
+                <div class="col-lg-12 mb-10">
+                    <hr>
+                </div>
+                <div style="width:98%; border-radius: 5px; background-color: #f44336; opacity: 0.7; color: white;">
+                    <p id="save_address_error_msg" align="center"></p>
+                </div>
+                <div class="" style="width: 98%; border-radius: 5px; background-color: #008000 ; opacity: 0.7; color: white;">
+                    <p id="save_address_success_msg" align="center"></p>
+                </div>
+
+                {% if users_street != '' %}  
+                <div class="col-lg-12 mb-10">
+                    <div id="deliver-to">
+                        <label>Default Delivery Address 🚚 <span>*</span></label><br>
+                        <input id="ship" type="checkbox" onchange="changeAddress()"/>
+                        <label  for="ship">Deliver to a different address?</label>
+                    </div>
+                </div>
+
+                <div id="show-address" class="col-lg-12 mb-20" >
+                    <div style="padding-left: 10px;"><p id="address">🏡 {{ users_street }}, {{ users_barangay }}, {{ users_citymun }}, {{ users_province }}</p></div>                      
+                </div>
+
+                <div id="edit-address" class="col-lg-12 mb-20" hidden>
+                    <label>Complete Address</label> <span>*</span>
+                    <input type="text" name="street" id="street" placeholder="Please enter your complete and exact delivery address." required>
+                    <br><br>
+                    <label>Province</label> <span>*</span>
+                    <select style=" width: 100%; height: 40px; border-radius: 3px; border-color: lightgray;" name="province" id="province"  required>
+                        <option selected="true" disabled> Choose Province</option>
+
+                        {% for province in provinces %}
+                        <option value="{{ province.provCode }}">{{ province.provDesc }}</option>
+                        {% endfor %}
+
+                    </select>       
+                    <br><br>
+                    <label>City/Municipality</label> <span>*</span>
+                    <select disabled style=" width: 100%; height: 40px; border-radius: 3px; border-color: lightgray;" name="citymun" id="citymun"  required>
+                     <option selected="true" disabled> Choose City/Municipality</option>
+                 </select>
+                 <br><br>
+                 <label>Barangay</label> <span>*</span>
+                 <select disabled style=" width: 100%; height: 40px; border-radius: 3px; border-color: lightgray;" name="barangay" id="barangay"  required>
+                    <option selected="true" disabled> Choose Barangay</option>
+                </select>
+                <div align="right">
+                    <br>
+                    <label><a class="view" id="save_address_details"><span>Save</span></a></label>
+                </div> 
+            </div>      
+            {% else %}
+            <div class="col-lg-12 mb-10">
+                <div id="deliver-to" hidden>
+                    <label>Default Delivery Address 🚚 <span>*</span></label><br>
+                    <input id="ship" type="checkbox" onchange="changeAddress()"/>
+                    <label  for="ship">Deliver to a different address?</label>
+                </div>
+            </div>
+            <div id="show-address" class="col-lg-12 mb-20" hidden>
+                <div style="padding-left: 10px;"><p id="address">🏡 {{ users_street }}, {{ users_barangay }}, {{ users_citymun }}, {{ users_province }}</p></div>                      
+            </div>
+            <div id="edit-address" class="col-lg-12 mb-20">
+                <label>Complete Address</label> <span>*</span>
+                <input type="text" name="street" id="street" placeholder="Please enter your complete and exact delivery address." required>
+                <br><br>
+                <label>Province</label> <span>*</span>
+                <select style=" width: 100%; height: 40px; border-radius: 3px; border-color: lightgray;" name="province" id="province"  required>
+                    <option selected="true" disabled> Choose Province</option>
+
+                    {% for province in provinces %}
+                    <option value="{{ province.provCode }}">{{ province.provDesc }}</option>
+                    {% endfor %}
+
+                </select>       
+                <br><br>
+                <label>City/Municipality</label> <span>*</span>
+                <select disabled style=" width: 100%; height: 40px; border-radius: 3px; border-color: lightgray;" name="citymun" id="citymun"  required>
+                 <option selected="true" disabled> Choose City/Municipality</option>
+             </select>
+             <br><br>
+             <label>Barangay</label> <span>*</span>
+             <select disabled style=" width: 100%; height: 40px; border-radius: 3px; border-color: lightgray;" name="barangay" id="barangay"  required>
+                <option selected="true" disabled> Choose Barangay</option>
+            </select>
+            <div align="right">
+                <br>
+                <label><a class="view" id="save_address_details"><span>Save</span></a></label>
+            </div> 
+        </div>      
+        {% endif %}  
+        <div class="col-lg-12 mb-0">
+            <hr>
+        </div>
+    </div>
+</div>
+<div class="col-lg-6 col-md-6">
+    <h3>Your order</h3> 
+    <div class="order_table table-responsive">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <center>
+                    {% if account is not none %}  
+                    {% if cart is not none %}  
+                    {% for items in cart  %}
+                    <tr>
+                        <td>{{ items.product_name }}<strong> × {{ items.qty }}</strong></td>
+                        <td> ₱{{items.total_price}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    {% endif %}
+                </center>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Cart Subtotal</th>
+                    <td>₱{{ subtotal }}</td>
+                </tr>
+                <tr>
+                    <th>Delivery Fee</th>
+                    <td><p style="font-size: 13px">Ranges from <strong>₱0.00 to ₱100.00</strong></p></td>
+                </tr>
+                <tr class="order_total">
+                    <th>Order Total</th>
+                    <td><strong>₱{{ subtotal }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>     
+    </div>
+    <div style="width:100%; border-radius: 5px; background-color: #f44336; opacity: 0.7; color: white;">
+        <p id="place_order_error_msg" align="center"></p>
+    </div>
+    <div class="order-notes">
+       <label for="order_note">Order Notes</label>
+       <input style="height:80px;" type="text" id="order_note" name="order_note" placeholder="Notes about your order, e.g. special notes for delivery.">
+   </div>   
+   <br>
+   {% if name == '' and users_street == '' %}
+   <div class="order_button" align="center" id="not_proceed">
+    <a href="#" id="no_place_order"><button type="submit">Place Order Now</button></a>
+</div>  
+<div class="order_button" align="center" id="proceed" hidden>
+    <a href="#" id="place_order"><button type="submit">Place Order Now</button></a>
+</div>   
+{% else %}
+<div class="order_button" align="center">
+    <a href="#" id="place_order"><button type="submit">Place Order Now</button></a>
+</div> 
+{% endif %}
+</div>
+</div> 
+</div> 
+</div>       
+</div>
+<!--Checkout page section end-->
+<input type="text" name="username" id="username" value="{{ username }}" hidden>
+<script src="{{ url_for('static', filename='admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/checkout_process.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/address_dropdown.js') }}"></script>
+
+{% include '/ecommerce/index/footer.html' %}

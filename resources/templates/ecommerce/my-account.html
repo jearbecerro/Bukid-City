@@ -1,0 +1,307 @@
+{% include '/ecommerce/index/header.html' %}
+
+    <div class="breadcrumbs_area">
+        <div class="container">   
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                       
+                        <h3>{{ account }}'s Account</h3>
+                        <ul>
+                            <li style="padding-left: 15px"><a href="/" >home</a></li>
+                            <li><a>my account</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>         
+    </div>
+                                                               
+    <!-- my account start  -->
+    <section class="main_content_area">
+                                                                
+        <div class="container">   
+            <div class="account_dashboard">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <!-- Nav tabs -->
+                        <div class="dashboard_tab_button">
+                            <ul role="tablist" class="nav flex-column dashboard-list">
+                                <li><a href="#dashboard" data-toggle="tab" class="nav-link">Dashboard</a></li>
+                                <li> <a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
+                                <li><a href="#address" data-toggle="tab" class="nav-link">Addresses</a></li>
+                                <li><a href="#account-details" data-toggle="tab" class="nav-link">Account details</a></li>
+                                <li><a href="/logout" class="nav-link">logout</a></li>
+                            </ul>
+                        </div>    
+                    </div>
+                    <div class="col-sm-12 col-md-9 col-lg-9">
+                        <!-- Tab panes -->
+                        <div class="tab-content dashboard_content">
+                            <div class="tab-pane fade show active" id="dashboard">
+                                <h3>Dashboard </h3>
+                                <p>From your account dashboard. You can easily check &amp; view your <a href="#orders" data-toggle="tab" >recent orders</a>, manage your <a  href="#address" data-toggle="tab">shipping and billing addresses</a> and <a href="#account-details" data-toggle="tab">Edit your password and account details.</a></p>
+                                {% if name == '' %}   
+                                <div align="center">
+                                    <p style="color: red;"> Please fill in your billing address and account details!</p>
+                                </div>
+                                {% else %}
+                                    
+                                {%endif %}
+                                <div class="error_form">
+                                 <a href="/">Go to home </a> &nbsp&nbsp&nbsp<a href="/places">Go to shop</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show" id="orders">
+                                    <div class="account_form">
+                                    <h3 align="center">My Order List</h3>  
+                                    {% if order_count >= 4%}
+                                    <form style="height:400px; overflow: auto;">    
+                                    {% else %}
+                                    <form style="height: auto;  overflow: auto;">  
+                                    {% endif %}
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left;vertical-align: middle;">Date</th>
+                                                <th style="text-align: center;vertical-align: middle;">Orders</th>
+                                                <th style="text-align: center;vertical-align: middle;">Status</th>
+                                                <th style="text-align: center;vertical-align: middle;">Total</th>
+                                                <th style="text-align: center;vertical-align: middle;">Actions</th>                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for order in orders %}
+                                            <tr style="padding: 20px;">
+                                                <td style="text-align: left;vertical-align: middle;">{{ order.date }}</td>
+                                                {% if order.product_ordered|length > 2 %}
+                                                <td style="text-align: center;vertical-align: middle;">
+                                                    {% for items in order.product_ordered[0:2] %}
+                                                    {{ items.product_name }} <b>x {{ items.qty }}</b>
+                                                    <br>
+                                                    {% endfor %}
+                                                    ... +{{ order.product_ordered|length - 2 }} more
+                                                </td>
+                                                {% else %}
+                                                <td style="text-align: center;vertical-align: middle;">
+                                                    {% for items in order.product_ordered %}
+                                                    {{ items.product_name }} <b>x {{ items.qty }}</b>
+                                                    <br>
+                                                    {% endfor %}
+                                                </td>
+                                                {% endif %}
+                                                <td style="text-align: center;vertical-align: middle;"><span class="success">{{ order.status }}</span></td>
+                                                <td style="text-align: center;vertical-align: middle;">₱{{ order.total }}</td>
+                                                <td style="text-align: center;vertical-align: middle; color: green;"><a onclick="view_order('{{ order._id }}')">VIEW</a></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+
+                                    </table>
+                                    <hr>
+                                    </form>
+                                    
+                                </div>    
+                            </div>
+
+                            <div class="tab-pane fade  show {{ show_address }}" id="address">
+                                <h3>My Delivery Address</h3>
+                              <div class="product_d_inner">   
+
+                                                <div class="account_login_form">
+                                                            <div class="" style="width: 100%; border-radius: 5px; background-color: #f44336; opacity: 0.7; color: white;">
+                                                            <p id="save_address_error_msg" align="center"></p>
+                                                            </div>
+                                                            <div class="" style="width: 100%; border-radius: 5px; background-color: #008000 ; opacity: 0.7; color: white;">
+                                                            <p id="save_address_success_msg" align="center"></p>
+                                                            </div>
+                                                              
+                                                            <div id="edit_address">
+                                                            <button class="view" onclick="edit_address()">Edit</button>
+
+                                                            </div>
+                                                            {% if users_province == '' %}   
+                                                            <p style="color: red;">Please fill in your billing address!</p>
+                                                            {%endif %}
+                                                    <form>
+                                                        <p>The following address will be used on the checkout page by default.</p>
+                                                        <label>House/Unit/Flr #/Land Mark, Bldg Name, Blk or Lot #</label> <span>*</span>
+                                                        <input type="text" name="street" id="street" value="{{ users_street }}" placeholder="Please enter your complete and exact delivery address" required>
+                                                    
+                                                            <label>Province</label> <span>*</span>
+                                                            <select style=" width: 100%; height: 45px; border-radius: 3px; border-color: lightgray;" name="province" id="province"  required>
+                                                                <option selected="true" disabled> Choose Province
+                                                                     </option>
+                                                                {% if users_province == '' %}   
+                                                                    
+                                                                    {% for province in provinces %}
+                                                                    <option value="{{ province.provCode }}">{{ province.provDesc }}</option>
+                                                                    {% endfor %}
+
+                                                                {% else %}    
+                                                                   
+                                                                    {% for province in provinces %}
+  
+                                                                     <option value="{{ province.provCode }}" {% if province.provDesc==users_province %} selected="selected"{% endif %}> {{ province.provDesc }}
+                                                                     </option>
+                                                                    {% endfor %}
+                                                                    
+                                                                    
+                                                                {%endif %}
+                                                            </select>
+                                                            <br><br>
+                                                            <label>City/Municipality</label> <span>*</span>
+                                                            <select disabled style=" width: 100%; height: 45px; border-radius: 3px; border-color: lightgray;" name="citymun" id="citymun"  required>
+                                                               <option value=""> {{ users_citymun }}</option>
+                                                                
+                                                            </select>
+                                                            <br><br>
+                                                            <label>Barangay</label> <span>*</span>
+                                                            <select disabled style=" width: 100%; height: 45px; border-radius: 3px; border-color: lightgray;" name="barangay" id="barangay"  required>
+                                                                     <option value=""> {{ users_barangay }}</option>
+                                                                
+                                                            </select>
+                                                    
+                                                      <br>
+                                                        <br>
+                                                        <a href="#" id="save_address_details" style="float: right;"><button type="submit">Save</button></a>
+                                                        <br>
+
+                                                    </form>
+                                                </div>  
+
+                                </div>   
+                            </div>
+                                <div class="tab-pane fade show{{ show_account_details }}" id="account-details">
+                                 <div class="product_d_inner">   
+                                    <div class="product_info_button" >   
+                                        <ul class="nav" role="tablist" >
+                                            <li >
+                                                <a class="active"  style=" font-size: 16px"data-toggle="tab" href="#personal" role="tab" aria-controls="info" aria-selected="false">Personal Profile </a>
+                                            </li>
+                                            <li >
+                                                <a style=" font-size: 16px"data-toggle="tab" href="#login-details" role="tab" aria-controls="info" aria-selected="false">Login Details </a>
+                                            </li>
+                                            
+                                             <li>
+                                                 <a style="font-size: 16px" data-toggle="tab" href="#farmersclub" role="tab" aria-controls="sheet" aria-selected="false">Farmers Club</a>
+                                            </li>
+                                           
+                                        </ul>
+                                    </div>
+
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane fade show active" id="personal" role="tabpanel" >
+                                                 <div class="account_login_form">
+                                                            <div class="" style="width: 100%; border-radius: 5px; background-color: #f44336; opacity: 0.7; color: white;">
+                                                            <p id="save_personal_error_msg" align="center"></p>
+                                                            </div>
+                                                            <div class="" style="width: 100%; border-radius: 5px; background-color: #008000 ; opacity: 0.7; color: white;">
+                                                            <p id="save_personal_success_msg" align="center"></p>
+                                                            </div>
+                                                     
+                                                        <div id="edit_personal">
+                                                            <button class="view" onclick="edit_personal()">Edit</button>
+                                                        </div>
+                                                        
+                                                        <form>
+                                                            <label>Full name</label>
+                                                            <input type="text" name="name" placeholder="Name" id="name" value="{{ name }}" required >
+                                                            <label>Mobile Number</label>
+                                                            <input type="text" name="number" placeholder="09123456789" id="number" value="{{ phone }}" required >
+                                                            <label>Birthdate</label>
+                                                            <input type="date" id="birthday" name="birthday" value="{{ birthdate }}" required  >
+                                                            <span class="example" id="test">
+                                                              (E.g.: 31/05/1990)
+                                                            </span>
+                                                            
+                                                                <a href="#" id="save_personal_details" style="float: right;"><button type="submit">Save</button></a>
+                                                       
+                                                        </form>
+                                                   
+                                                </div>
+                                        </div>
+
+                                        <div class="tab-pane fade " id="login-details" role="tabpanel" >
+                                                 <div class="account_login_form">
+                                                            <div class="" style="width: 100%; border-radius: 5px; background-color: #f44336; opacity: 0.7; color: white;">
+                                                            <p id="login_error_msg" align="center"></p>
+                                                            </div>
+                                                            <div class="" style="width: 100%; border-radius: 5px; background-color: #008000 ; opacity: 0.7; color: white;">
+                                                            <p id="login_success_msg" align="center"></p>
+                                                            </div>
+
+                                                            <button class="view" onclick="change_email()">Change Email</button>
+                                                            <button class="view" onclick="edit_password()">Edit Password</button>
+                                                                
+                                                            <form>
+                                                                    <p>   
+                                                                    <label>Username  <span>*</span></label>
+                                                                    <input type="text" name="username" id="username" value="{{ username }}" required readonly>
+                                                                    </p>
+                                                                    <p> <i id="change" hidden>Change</i>
+                                                                    <label>Email address  <span>*</span></label>
+                                                                    <input type="email" name="email" id="email" value="{{ email }}" required readonly>
+                                                                    </p>
+                                                                    <div id="edit_password" hidden>
+                                                                    <label>Old Passwords <span>*</span> </label>
+                                                                    <input type="password" name="old_password" id="old_password">
+                                                                    
+                                                                    <label>New Passwords <span>*</span> </label>
+                                                                    <input type="password" name="new_password" id="input_password" title="Password must atleast one number and one uppercase and lowercase letter, one special character and 8 or more characters.">
+                                                                    <br>
+                                                                    <div class="login_submit" style="text-align: left;">
+                                                                     <label for="show-password">
+                                                                         <input type="checkbox" id="show-password" onclick="showPassword()">Show Password
+                                                                    </label>
+                                                                    </div>
+                                                                    </div>
+                                                                    
+                                                                    <div id="message_box" style="width: 100%; border-radius: 5px; background-color: #FF7F50; opacity: 0.8; color: white;">
+                                                                        <p id="message" style="text-align: center;">Password must atleast one number and one uppercase and lowercase letter, one special character and 8 or more characters.</p>
+                                                                    </div>
+                                                                   
+                                                                <a href="#" id="save_login_details" style="float: right;" hidden><button type="submit">Save</button></a>
+                                                                <br>
+                                                            </form>
+                                                </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="farmersclub" role="tabpanel" >
+                                                <div class="account_login_form" align="center">
+                                                    <form action="#">
+                                                       <h3>Registration Code</h3>
+                                                       <input style="width: 200px" type="text" name="code" placeholder="Ex. BC-845628" required>
+                                                       <br>
+                                                        <p><i>Not a farmers club?</i> <a> You can still shop!</a></p>
+                                                        <p>Go to <a href="#">Farmers Club Landing Page</a></p>
+                                                        <div class="login_submit">
+                                                            <button type="submit">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>   
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>        	
+    </section>			
+
+<script src="{{ url_for('static', filename='ecommerce/js/own/myaccount.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/view_order.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/address_dropdown.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/save_address_details.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/save_personal_details.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/change_email_password.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/show-password.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/passwordValidation.js') }}"></script>
+    <!-- my account end   --> 
+{% include '/ecommerce/index/footer.html' %}

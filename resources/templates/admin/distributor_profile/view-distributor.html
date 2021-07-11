@@ -1,0 +1,567 @@
+{% include '/admin/index/navbar.html' %}  
+{% include '/admin/index/sidebar.html' %}  
+{% include '/admin/index/content-wrapper.html' %} 
+
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/fontawesome-free/css/all.min.css') }}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/daterangepicker/daterangepicker.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.css') }}">
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Widget: user widget style 1 -->
+        <div class="card card-widget widget-user">
+          <div class="widget-user-header text-white"
+          style="background: url('{{ url_for('static', filename='admin/dist/img/photo1.png') }}') center center;">
+          <h3 class="widget-user-username text-right">{{ distributor.branch_name }}</h3>
+          <h5 class="widget-user-desc text-right">{{ distributor.business_partner }}</h5>
+        </div>
+        <div class="widget-user-image">
+          <img class="img-circle elevation-4" src="{{ url_for('static', filename='ecommerce/img/distributor/'+distributor.banner_image) }}" alt="Image" style="border-radius: 5px;">
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-sm-4 border-right">
+              <div class="description-block">
+                <h5 class="description-header">{{ "₱{:,.2f}".format(total_sales) }}</h5>
+                <span class="description-text">SALES</span>
+              </div>
+              <!-- /.description-block -->
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 border-right">
+              <div class="description-block">
+                <h5 class="description-header">{{ total_orders }}</h5>
+                <span class="description-text">ORDERS</span>
+              </div>
+              <!-- /.description-block -->
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4">
+              <div class="description-block">
+                <h5 class="description-header">{{ total_products }}</h5>
+                <span class="description-text">PRODUCTS</span>
+              </div>
+              <!-- /.description-block -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+      <!-- /.widget-user -->
+    </div>
+
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header border-transparent">
+          <h3 class="card-title">Sales / Orders</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+
+          <div class="col-6">
+            <div class="form-group">
+
+              <div class="input-group">
+                <button type="button" class="btn btn-default float-right" id="daterange-btn">
+                  <i class="far fa-calendar-alt"></i> View Sales by
+                  <i class="fas fa-caret-down"></i>
+                </button>
+                <i style="padding: 10px;">{{ view_by }}</i>
+              </div>
+            </div>
+          </div>
+          <i style="font-size: 12px;">If you want to see new sales and orders F5/refresh.<br>if you want to view all sales and orders again press F5/refresh.</i>
+          <div id="sales_orders">
+            <table id="sales_orders_list" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Total Sales</th>
+                  <th>Total Orders</th>
+                  <th>View Orders</th>
+                </tr>
+              </thead>
+              <tbody class="text-center py-0 align-middle" style="font-size: 14px;">
+                {% for sales in sales %}
+                <tr>
+                  <td style="vertical-align: middle;">{{ sales.date_view }}</td>
+                  <td style="vertical-align: middle;">{{ "₱{:,.2f}".format(sales.total_sales) }}</td>
+                  <td style="vertical-align: middle;">{{ sales.total_orders }}</td>
+                  <td style="vertical-align: middle;">
+                    {% if sales.orders|length >= 10 %}
+                    <div style="height:100px; overflow: auto;">
+                    {% else %}
+                    <div style="height:auto; overflow: auto; text-align: left;">
+                    {% endif %}
+                        {% for order in sales.orders %}
+                        <a href="#" onclick="view_orders('{{ order.order_id }}')" title="View {{ order.buyer }}'s Orders on {{ sales.date_view }}"><i class="fas fa-user"></i><span style="color: black;"> {{ order.buyer }} </span></a><br>
+                        {% endfor %}
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Date</th>
+                    <th>Total Sales</th>
+                    <th>Total Orders</th>
+                    <th>View Orders</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header border-transparent">
+            <h3 class="card-title">Products</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <i style="font-size: 12px;">Please reload if you want to see newly added products.</i>
+            <table id="product_list" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Date <small>Entry</small></th>
+                  <th>Image/Name</th>
+                  <th>Prices</th>
+                  <th>Category</th>
+                  <th>Stock</th>
+                  <th>Sales/Order</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody class="text-center py-0 align-middle" style="font-size: 14px;">
+                {% for product in products %}
+                <tr>
+                  <td style="vertical-align: middle;"><small>{{ product.update_date }}</small></td>
+                  <td style="vertical-align: middle;">
+                    <a onclick="view_single_product('{{ product._id }}')" href="#">
+                      <img src="{{ url_for('static', filename='ecommerce/img/product/'+product.image1) }}" style="width: 80px; height: 60px; border-radius: 3px;">
+                    </a><br>
+                    {{ product.name }} 
+                  </td>
+                  <td style="vertical-align: middle;">{{ "₱{:,.2f}".format(product.price| int) }}<br>₱ <strike>{{ "{:,.2f}".format(product.undiscounted_price| int) }}</strike></td>
+                  <td style="vertical-align: middle;">{{ product.category }}</td>
+                  <td style="vertical-align: middle;">{{ product.stock }}</td>
+                  <td style="vertical-align: middle;">₱ {{ product.total_sales }}/{{ product['total_orders'] }}</td>
+                  <td style="vertical-align: middle;">
+                    <div class="btn-group btn-group-sm">
+                      <a class="btn btn-danger"  href="#" onclick="delete_product('{{ product._id }}')" title="Delete"><i class="fas fa-trash"></i></a>
+                      &nbsp&nbsp
+                      <a class="btn btn-info"  href="#" onclick="view_single_product('{{ product._id }}')" title="View / Update"><i class="fas fa-eye"></i></a>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Date Entry</th>
+                  <th>Image/Name</th>
+                  <th>Prices</th>
+                  <th>Category</th>
+                  <th>Stock</th>
+                  <th>Sales/Order</th>
+                  <th>Actions</th>
+                </tr>
+              </tfoot>
+            </table>
+            <script>
+             function view_orders(order_id){
+              $.getJSON('/redirect_sales_selected', {  
+                order_id: order_id
+              }, function(data) {
+                if(data.redirect == 'OK'){
+                  window.location.href = '/distributor/view/sales';
+                }
+              });  
+            }
+
+            function view_single_product(product_id) {
+              $.getJSON('/redirect_single_view_product', {
+                product_id: product_id
+              }, function(data) {
+                if(data.redirect == 'OK'){
+                 window.location.href = '/product_management/ecommerce_products/view-edit-delete';
+               }
+             });
+            }
+
+            function delete_product(id){
+              Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.value) {
+                  $.getJSON('/delete_ecom_product', {  
+                    id: id
+                  }, function(data) {
+                    if(data.success == 'Product Deleted') {
+                      Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                        )
+
+                      var seconds = 2;
+                      var timer = setInterval(function() {
+                        seconds--;
+                        if(seconds == 0) {
+                          clearInterval(timer);
+                          window.location.href = '/distributor/view-edit-delete';
+                        }
+                      }, 1000);
+
+                    } 
+                  });   
+                }
+              })
+              return false;
+            }
+          </script>
+        </div>
+      </div>
+      <!-- /.card -->
+    </div>
+
+
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header border-transparent">
+          <h3 class="card-title">Update {{ distributor.branch_name }}</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="text-center">
+                <label for="fileimage">
+                  <img class="profile-user-img img-fluid img-square" style="width: 350px; height: 250px; border-color: white; border-radius: 10px;" 
+                  src="{{ url_for('static', filename='ecommerce/img/distributor/'+distributor.banner_image ) }}"
+                  alt="Image" id="img" ></label>
+                </div>
+                <br>
+                <div class="form-group">
+                  <label>Distributor Logo</label>
+                  <form id="uploadform" method="post" enctype="multipart/form-data">
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="fileimage" name="fileimage">
+                        <label class="custom-file-label" for="fileimage">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <button class="input-group-text" id="uploadImg">Upload</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="icheck-success d-inline">
+                  <input type="checkbox" id="defaultLogo" onclick="default_img()">
+                  <label for="defaultLogo">
+                    Same as Bukid City's default logo
+                  </label>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-group">
+              <i style="font-size: 13px;">After uploading the images make sure to save the product.</i>
+            </div>
+
+            <div class="form-group">
+              <label>Pick Up Center Name</label>
+              <input type="text" class="form-control" id="branch_name" name="branch_name" value="{{ distributor.branch_name }}" placeholder="Pick Up Center Name / Branch Name can be a Brgy.'s Name" >
+            </div>
+
+            <div class="form-group">
+              <label>About</label>
+              <input type="text" class="form-control" id="about" name="about" value="{{ distributor.about }}" placeholder="A brief information about the Pick Up Center" >
+            </div>
+
+            <div class="form-group">
+              <label>Facebook Page</label>
+              <input type="text" class="form-control" id="fb_url" name="fb_url" value="https://www.facebook.com/{{ distributor.facebook_page }}" placeholder="Link of Pick Up Center's Facebook">
+            </div>
+
+            <div class="form-group">
+              <label>Policies</label>
+              <textarea  class="form-control" id="policies" name="policies" placeholder='Ex. "Delivery Policy" We only deliver from 8am to 5pm.'>{{ policies }}</textarea>
+              <i style="font-size: 14px;">To give title to the policy, put it inside double qoutation "Title" before the policy's content</i>
+              <br>
+              <i style="font-size: 13px;">Just hit enter to add more policies.</i>
+            </div>
+
+            <div class="form-group">
+              <label>Location</label>
+              <input type="text" class="form-control" id="bldg" name="bldg" value="{{ distributor.bldg }}" placeholder="Bldg/Street Location">
+              <br>
+              <select  class="form-control" name="province" id="province" required>
+                <option value="None">Select Province</option>
+                {% for province in provinces %}
+                <option value="{{ province.provCode }}" {% if province.provDesc == distributor.province %} selected {% endif %}>{{ province.provDesc }}</option>
+                {% endfor %}
+              </select>
+              <br>
+              <select disabled class="form-control" name="citymun" id="citymun" required>
+                <option value="{{ distributor.city }}">{{ distributor.city }}</option>
+              </select>
+              <br>
+              <select disabled class="form-control" name="barangay" id="barangay" required>
+                <option value="{{ distributor.brgy }}">{{ distributor.brgy }}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Business Partner</label>
+              <input type="text" class="form-control" id="business_partner" name="business_partner" value="{{ distributor.business_partner }}" placeholder="The name of distributor's business partner">
+            </div>
+
+            <div id="updating"  class="float-right"></div>
+            <div id="div_update"  class="float-right">
+              <button id="update" class="btn btn-success" style="margin-right: 5px;">Update</button>
+            </div>
+            <div id="div_delete"  class="float-right">
+              <button id="delete" class="btn btn-danger float-right"  style="margin-right: 5px;">Delete</button>
+            </div>
+            {% if is_admin_login == True %}
+            <div id="div_goback"  class="float-right">
+              <a href="/distributor-list" class="btn btn-info float-right"  style="margin-right: 5px;">Distributor's List</a>
+            </div>
+            {% endif %}
+          </div>
+          <script>
+            function default_img(){
+              if ($('#defaultLogo').is(":checked")){
+                $("#img").attr('src',"{{ url_for('static', filename='ecommerce/img/distributor/default.jpg') }}");
+              }
+            }
+
+            $(function() {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 7000
+              });
+
+              $('#update').bind('click', function(){
+                document.getElementById("div_delete").hidden = true;
+                document.getElementById("div_update").hidden = true;
+                document.getElementById("updating").innerHTML = "<span><i class='fas fa-sync-alt'></i> Updating distributor..<span>";
+                var default_img = '';
+                if ($('#defaultLogo').is(":checked")){
+                  default_img = 'default.jpg';
+                }
+                $.getJSON('/update_dist', {  
+                  branch_name :$('input[name="branch_name"]').val(),
+                  about :$('input[name="about"]').val(),
+                  fb_url:$('input[name="fb_url"]').val(),
+                  bldg :$('input[name="bldg"]').val(),
+                  province : $('#province option:selected').val(),
+                  citymun : $('#citymun option:selected').val(),
+                  barangay : $('#barangay option:selected').val(),
+                  policies: $('textarea[name="policies"]').val(),
+                  default_img: default_img,
+                  business_partner :$('input[name="business_partner"]').val()
+                }, function(data) {
+                  if(data.success == 'Product Added') {
+                    Toast.fire({
+                      icon: 'success',
+                      title: '&nbspSuccessfully Updated',
+                    })
+                    document.getElementById("citymun").disabled = true;
+                    document.getElementById("barangay").disabled = true;
+                    document.getElementById("div_update").hidden = false;
+                    document.getElementById("updating").innerHTML = "";
+                    document.getElementById("div_delete").hidden = false;
+                  } else{
+                    Toast.fire({
+                      icon: 'warning',
+                      title: data.errors,
+                    })
+                    document.getElementById("div_delete").hidden = false;
+                    document.getElementById("div_update").hidden = false;
+                    document.getElementById("updating").innerHTML = "";
+                  }
+                });                  
+                return false;
+              });
+
+              $('#uploadImg').click(function() {
+                classify_uploadImg('#uploadform','/up_dist_product_img', '#img');
+              });
+
+              function classify_uploadImg(form,url,img){
+                event.preventDefault();
+                var form_data = new FormData($(form)[0]);
+
+                files = form_data.fileimage;
+                if (document.getElementById("fileimage").files.length == 0){
+                  Toast.fire({
+                    icon: 'error',
+                    title: '&nbsp Please input an image before uploading!',
+                  })
+                }
+                else{
+                  upload_Img(form, url, img, form_data);
+                }
+              }
+
+              function upload_Img(form,url,img, form_data){
+                $.ajax({
+                  type: 'POST',
+                  url: url,
+                  data: form_data,
+                  contentType: false,
+                  processData: false,
+                  dataType: 'json'
+                }).done(function(data){
+                  if (data.error = 'true'){
+                    Toast.fire({
+                      icon: 'warning',
+                      title: '&nbsp File extension not allowed! (png, jpg, jpeg) is the only allowed.',
+                    })
+                  }
+                  if (data.allowed == 'true'){
+                    $(img).attr('src', data.img_path);
+                    Toast.fire({
+                      icon: 'success',
+                      title: '&nbsp Image Uploaded',
+                    })
+                  }
+                }).fail(function(data){
+                  Toast.fire({
+                    icon: 'error',
+                    title: '&nbsp Server Error!',
+                  })
+                });
+              }
+
+            });
+
+          </script>
+
+        </div>
+        <!-- /.card -->
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="{{ url_for('static', filename='admin/js/address_dropdown.js') }}"></script>
+
+<script src="{{ url_for('static', filename='admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='admin/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<script>
+  $(function () {
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
+
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    $('#sales_orders_list').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+
+    $('#product_list').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+
+  });
+  $('#daterange-btn').daterangepicker(
+  {
+    ranges   : {
+      'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+      'Last 15 Days' : [moment().subtract(14, 'days'), moment()],
+      'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+      'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+      'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+      'This Year'   : [moment().startOf('year'), moment().endOf('year')],
+    },
+    startDate: moment().subtract(29, 'days'),
+    endDate  : moment()
+  },
+  function (start, end) {
+    var start = start.format('YYYY-M-D');
+    var end = end.format('YYYY-M-D');
+    $.getJSON('/view_sales_by_date', {  
+      start:start,
+      end:end,
+    }, function(data) {
+      window.location.href = '/distributor/view-edit-delete';
+    }); 
+  }
+  )
+</script>
+
+{% include '/admin/index/footer.html' %} 

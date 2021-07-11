@@ -1,0 +1,21 @@
+{% include '/ecommerce/index/header.html' %}
+
+    <!--error section area start-->
+    <div class="error_section">
+        <div class="container">   
+            <div class="row">
+                <div class="col-12">
+                    <div class="error_form">
+                        <h1>{{ error_code }}</h1>
+                        <h2>{{ error_desc }}</h2>
+                        <p>{{ error_details }}</p>
+                       
+                        <a href="/">Back to home </a> &nbsp&nbsp&nbsp<a href="/places">Go to shop</a>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <!--error section area end--> 
+
+{% include '/ecommerce/index/footer.html' %}

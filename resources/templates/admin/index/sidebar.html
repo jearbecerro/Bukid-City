@@ -1,0 +1,200 @@
+<!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link">
+      <img src="{{ url_for('static', filename='ecommerce/img/favicon.ico') }}" alt="Bukid City Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Bukid City</span>
+
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      {% if is_distributor_login == True %}
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{ url_for('static', filename='ecommerce/img/distributor/distributor_profile.png') }}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info menu-{{ profile }}">
+          <a href="/distributor/profile" class="d-block">Distributor's Profile</a>
+        </div>
+      </div>
+      {% elif is_admin_login == True %}
+
+      {% else %}
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{ url_for('static', filename='admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info menu-{{ profile }}">
+          <a href="/profile" class="d-block">{{ member_name }}</a>
+        </div>
+      </div>
+      {% endif %}
+      
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          {% if is_admin_login == True %}
+
+          <li class="nav-item">
+            <a href="/admin" class="nav-link {{ dashboard }}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview menu-{{ payout_management }}">
+            <a href="/payout-management" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Payout Management
+              </p>
+            </a>
+            </li>
+
+            <li class="nav-item has-treeview  menu-{{ product_management }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-barcode"></i>
+              <p>
+                Product Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/product-management/mlm-products" class="nav-link {{ mlm_products }}">
+                  <i class="nav-icon far fa-circle text-warning"></i>
+                  <p>MLM Products</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/product-management/ecommerce-products" class="nav-link {{ ecommerce_products }}">
+                  <i class="nav-icon far fa-circle text-info"></i>
+                  <p>eCommerce Products</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview menu-{{ profile_management }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Members Profile
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/members-profile/add-member" class="nav-link {{ add_member }}">
+                  <i class="far fa-plus-square nav-icon"></i>
+                  <p>Add Member</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/members-profile/members-list" class="nav-link {{ members_list }}">
+                  <i class="far fas fa-book nav-icon"></i>
+                  <p>Members List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview menu-{{ distributor }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Distributors Profile
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/add-distributor" class="nav-link {{ add_distributor }}">
+                  <i class="nav-icon far fa-plus-square"></i>
+                  <p>Add Distributor</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/distributor-list" class="nav-link {{ distributor_list }}">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p class="text">Distributor List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview menu-{{ orders }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>Order Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/orders-management/pending-orders" class="nav-link {{ pending }}">
+                   <p style="padding-left: 40px;">Pending Orders</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/orders-management/orders-for-delivery" class="nav-link {{ for_delivery }}">
+                   <p style="padding-left: 40px;">Orders for Delivery</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/orders-management/delivered-orders" class="nav-link {{ delivered }}">
+                   <p style="padding-left: 40px;">Delivered</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          {% endif %}
+
+          {% if is_distributor_login == True %}
+          <li class="nav-item has-treeview menu-{{ orders }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>Order Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/orders-management/pending-orders" class="nav-link {{ pending }}">
+                   <p style="padding-left: 40px;">Pending Orders</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/orders-management/orders-for-delivery" class="nav-link {{ for_delivery }}">
+                   <p style="padding-left: 40px;">Orders for Delivery</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/orders-management/delivered-orders" class="nav-link {{ delivered }}">
+                   <p style="padding-left: 40px;">Delivered</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-{{ ecommerce_products }}">
+            <a href="/distributor/products" class="nav-link">
+              <i class="nav-icon fas fa-barcode"></i>
+              <p>Product Management
+              </p>
+            </a>
+          </li>
+          {% endif %}
+          
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

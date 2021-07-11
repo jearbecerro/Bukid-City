@@ -1,0 +1,113 @@
+ <!--slider area start-->
+    <section class="slider_section">
+        <div class="slider_area owl-carousel" style="color: white; opacity: 1;">
+            <div class="single_slider d-flex align-items-center" data-bgimg="{{ url_for('static', filename='ecommerce/img/slider/1order-online.jpg') }}">
+                <div class="container" style="padding-top: 5%;">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="slider_content">
+                                <h1 style="background-color:  rgba(0,0,0,0.5); text-align: center;">Order Online</h1>
+                                <h2 style="background-color:  rgba(0,0,0,0.5); text-align: center;">Door to Door Delivery!</h2>
+                                <br>
+                                <center>
+                                <a  href="/places">Shop Now</a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                                <div style="padding-top: 5%;" >
+                                    <marquee direction="right" scrollamount="30"  loop="5">
+                                    <img style=" vertical-align:middle; max-width: 60px;" src="{{ url_for('static', filename='ecommerce/img/about/shipping1.png') }}">
+                                    </marquee>
+                                </div>
+                </div>
+
+            </div>
+            <div class="single_slider d-flex align-items-center" data-bgimg="{{ url_for('static', filename='ecommerce/img/slider/2quality-affordable.jpg') }}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="slider_content">
+                                <h1 style="background-color:  rgba(0,0,0,0.5); text-align: center;">Quality and Affordable</h1>
+                                <h2 style="background-color:  rgba(0,0,0,0.5); text-align: center;">Fresh Farm Products</h2>
+                                <br>
+                                <center>
+                                <a  href="/places">Shop Now</a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single_slider d-flex align-items-center" data-bgimg="{{ url_for('static', filename='ecommerce/img/slider/3farm-to-table.jpg') }}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="slider_content">
+                                <h1 style="background-color:  rgba(0,0,0,0.5); text-align: center;">Farm to Table</h1>
+                                <h2 style="background-color:  rgba(0,0,0,0.5); text-align: center;">Organically Grown Agri-Food Products</h2>
+                                <br>
+                                <center>
+                                <a  href="/places">Shop Now</a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--slider area end-->
+        <!--shipping area start-->
+    <div class="shipping_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="single_shipping">
+                        <div class="shipping_icone">
+                            <img src="{{ url_for('static', filename='ecommerce/img/about/shipping1.png') }}" alt="">
+                        </div>
+                        <div class="shipping_content">
+                            <h3>Door to Door Delivery</h3>
+                            <p>We deliver from farm to your table</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single_shipping col_2">
+                        <div class="shipping_icone">
+                            <img src="{{ url_for('static', filename='ecommerce/img/about/shipping2.png') }}" alt="">
+                        </div>
+                        <div class="shipping_content">
+                            <h3>Cash on delivery</h3>
+                            <p>No need to have Paypal, ATM card and any wire transfer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single_shipping col_3">
+                        <div class="shipping_icone">
+                            <img src="{{ url_for('static', filename='ecommerce/img/about/shipping3.png') }}" alt="">
+                        </div>
+                        <div class="shipping_content">
+                            <h3>Live Costumer Support</h3>
+                            <p>Real costumer support via facebook messenger and call center</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single_shipping col_4">
+                        <div class="shipping_icone">
+                            <img src="{{ url_for('static', filename='ecommerce/img/about/shipping4.png') }}" alt="">
+                        </div>
+                        <div class="shipping_content">
+                            <h3>100% Fresh</h3>
+                            <p>We ensure that our products are affordable and in good quality</p>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+    <!--shipping area end-->

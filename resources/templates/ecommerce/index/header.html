@@ -1,0 +1,190 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Bukid City | {{ title }} </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='ecommerce/img/favicon.ico') }}">
+    
+    <!-- CSS 
+        ========================= -->
+        <!--bootstrap min css-->
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/bootstrap.min.css') }}">
+        <!--owl carousel min css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/owl.carousel.min.css') }}">
+        <!--slick min css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/slick.css') }}">
+        <!--magnific popup min css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/magnific-popup.css') }}">
+        <!--font awesome css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/font.awesome.css') }}">
+        <!--ionicons css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/ionicons.min.css') }}">
+        <!--linearicons css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/linearicons.css') }}">
+        <!--animate css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/animate.css') }}">
+        <!--jquery ui min css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/jquery-ui.min.css') }}">
+        <!--slinky menu css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/slinky.menu.css') }}">
+        <!--plugins css-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/plugins.css') }}">
+
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='ecommerce/css/style.css') }}">
+
+        <!--modernizr min js here-->
+        <script src="{{ url_for('static', filename='ecommerce/js/vendor/modernizr-3.7.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='ecommerce/js/vendor/jquery-3.4.1.min.js') }}"></script>
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    </head>
+
+    <body>
+
+        <!--header area start-->
+
+        <!--offcanvas menu area start-->
+        <div class="off_canvars_overlay">
+
+        </div>
+        {% include '/ecommerce/index/header-mobile.html' %}
+
+
+        <!-- -------------------------------------------------------------------------- -->    
+        <header style="padding-bottom: 10px;">
+            <div class="main_header">
+                <div class="header_top">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-6">
+
+                                <div class="language_currency">
+                                    <ul>
+
+                                        <li class="language"><a href="#"> Farmers Club <i class="icon-right ion-ios-arrow-down"></i></a>
+                                            <ul class="dropdown_language">
+
+                                                <li><a href="/member/login">Member</a></li>
+                                                <li><a href="/distributor/login">Distributor</a></li>
+                                                <li><a href="/admin/login">Admin</a></li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="header_social text-right">
+                                    <ul>
+                                        <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                                        <li><a href="#"><i class="ion-social-youtube-outline"></i></a></li>
+                                        <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_middle">
+                    <div class="container">
+                        <div align="center" class="">
+                         <a href="/"><img style="max-width: 250px;" src="{{ url_for('static', filename='ecommerce/img/logo/logo.png') }}" alt=""></a>
+                     </div>
+
+                 </div>
+             </div>
+
+             <div class="header_bottom sticky-header">
+                <div class="container">  
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-4">
+                            <div class="main_menu menu_position"> 
+                                <nav>  
+                                    <ul>
+                                        <li><a class="active"  href="/" class="">home</a>
+                                        </li>
+                                        <li class="mega_items"><a href="/places">shop<i class=""></i></a></li>
+                                        <li><a href="/about">About<i class="icon-right ion-ios-arrow-down"></i></a>
+                                            <ul class="sub_menu pages">
+                                                <li><a href="/about">About Us</a></li>
+                                                <li><a href="/faq">FAQs</a></li>
+                                                
+                                            </ul>
+                                        </li> 
+                                        <li><a href="/about">News<i class="icon-right ion-ios-arrow-down"></i></a>
+                                            <ul class="sub_menu pages">
+                                                <li><a href="/about">Blog</a></li>
+                                                <li><a href="/faq">Updates</a></li>
+                                                
+                                            </ul>
+                                        </li> 
+                                    </ul>  
+                                </nav> 
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            {% if page != 'pick-up-center' %}
+                            <div class="search_container">
+                                <form action="/search-product" method="POST">
+                                    <div class="search_box" >
+                                        <input placeholder="Search product..." type="text" id="search_product" name="search_product">
+                                        <button type="submit"><span class="lnr lnr-magnifier"></span></button>
+                                    </div>
+                                </form>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="header_account_area">
+                                {% if account is not none %}   
+                                <div class="header_account_list header_wishlist" style="">
+                                    <a href="/myaccount" style="font-size: 14px;">My Account</a>
+                                </div>
+                                <div class="header_account_list header_wishlist">
+                                    <a href="/logout" style="font-size: 14px;">Logout</a>
+                                </div>
+                                {% else %}
+                                <div class="header_account_list header_wishlist">
+                                    <a href="/login" style="font-size: 14px;">Login</a>
+                                </div>
+                                <div class="header_account_list header_wishlist">
+                                    /
+                                </div>
+                                <div class="header_account_list header_wishlist">
+                                    <a href="/register" style="font-size: 14px;">Register</a>
+                                </div>
+                                {%endif %}
+
+
+                                {% if account is not none %}    
+                                {% if title != 'My Cart' %}
+
+                                <div class="header_account_list  mini_cart_wrapper">
+                                    <a href="javascript:void(0)"><span class="lnr lnr-cart"></span><span class="item_count"><p id="cart_count">{{ cart_count }}</p></span></a>
+                                    <!--mini cart-->
+                                    {% include '/ecommerce/index/minicart.html' %}
+                                    <!--mini cart end-->
+                                </div>
+                                {% else %}
+                                <a><span class="lnr lnr-cart"></span><span class="item_count"><p id="cart_count"></p></span></a>
+                                {%endif %}
+                                {% else %}
+                                <a><span class="lnr lnr-cart"></span><span class="item_count"><p id="cart_count"></p></span></a>
+                                {%endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--header area end-->

@@ -1,0 +1,125 @@
+{% include '/ecommerce/index/header.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">   
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                   <h3>{{ username }} Cart</h3>
+                   <ul>
+                    <li><a href="/">home</a></li>
+                    <li>Shopping Cart</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>         
+</div>
+<!--breadcrumbs area end-->
+
+<!--shopping cart area start -->
+<div class="shopping_cart_area mt-70">
+    <div class="container">  
+        <div class="row">
+            <div class="col-12">
+                <table id="cart_table" class="table table-bordered">
+                  <thead style="background-color: rgb(215,215,215);">
+                    <tr>
+                        <th style="text-align: center;">Delete</th>
+                        <th style="text-align: center;">Image</th>
+                        <th style="text-align: center;">Product</th>
+                        <th style="text-align: center;">Price</th>
+                        <th style="text-align: center;">Quantity</th>
+                        <th style="text-align: center;">Total</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center py-0 align-middle" style="font-size: 14px; ">
+                 {% for items in cart  %}
+                 <tr id="cart_{{ items.product_id }}">
+                    <td style="vertical-align: middle;"><a onclick="remove_from_cart('{{ items.product_id }}')"><i class="fa fa-trash-o"></i></a></td>
+                    <td style="vertical-align: middle;"><a href="#"><img src="{{ url_for('static', filename='ecommerce/img/product/'+items.img) }}" alt="" style="width: 100px; height: 100px;"></a></td>
+                    <td style="vertical-align: middle;"><a href="#">{{ items.product_name }}</a></td>
+                    <td style="vertical-align: middle;">₱{{ items.price }}</td>
+                    <td style="vertical-align: middle;"><label>Quantity</label> <input min="1" max="50" value="{{ items.qty }}" type="number" id="qty_{{ items.product_id }}" onchange="calculate_qty_total_price('{{ items.product_id }}')"></td>
+                    <td style="vertical-align: middle;" id="total_price_{{ items.product_id }}">₱{{ items.total_price }}</td>
+                    <input type="text" id="price_{{ items.product_id }}" value="{{ items.price }}" hidden>
+                </tr>            
+
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if cart is none %}  <tr><center>No items in Cart</center> {% endif %}
+            <center><p id="no_items_in_cart"></p></center>
+
+        </div>
+    </div>
+    <br>
+    <!--coupon code area start-->
+    <div class="coupon_area">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="coupon_code left">
+                    <h3>Coupon</h3>
+                    <div class="coupon_inner">   
+                        <p>Enter your coupon code if you have one.</p>                                
+                        <input placeholder="Coupon code" type="text">
+                        <button type="submit">Apply coupon</button>
+                    </div>    
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="coupon_code right">
+                    <h3>Cart Totals</h3>
+                    <div class="coupon_inner">
+                       <div class="cart_subtotal">
+                           <p>Subtotal</p>
+                           <p class="cart_amount" id="cart_subtotal">₱{{ subtotal }}</p>
+                       </div>
+                       <div class="cart_subtotal ">
+                           <p>Delivery Fee</p>
+                           <p class="cart_amount" style="font-size: 15px">Ranges from ₱0.00 to ₱100.00</p>
+                       </div>
+                       <div class="cart_subtotal">
+                           <p>Total</p>
+                           <p class="cart_amount" id="cart_total">₱{{ subtotal }} + Delivery Fee</p>
+                       </div>
+                       <div class="checkout_btn">
+                           <a href="/checkout">Proceed to Checkout</a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!--coupon code area end-->
+</div>     
+</div>
+<!--shopping cart area end -->
+<script src="{{ url_for('static', filename='admin/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='ecommerce/js/own/cart_process.js') }}"></script>
+
+<script src="{{ url_for('static', filename='admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+<script>
+
+  $(function () {
+
+
+    $('#cart_table').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+  });
+});
+
+</script>
+{% include '/ecommerce/index/footer.html' %}

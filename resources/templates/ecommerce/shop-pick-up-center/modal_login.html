@@ -1,0 +1,94 @@
+           <div id="login_first" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                       
+                                      <div style="padding: 30px;">
+                                      <a type="button" data-dismiss="modal" style=" position: absolute; left: 94%;">&times;</a> 
+                                      <p style="font-size: 18px;">Welcome! Please login to continue.</p>
+
+                                      <div class="product_d_inner">   
+                                        <div class="product_info_button" >   
+                                            <ul class="nav" role="tablist" >
+                                                <li >
+                                                    <a class="active"  style=" font-size: 16px"data-toggle="tab" href="#login" role="tab" aria-controls="info" aria-selected="false">Login</a>
+                                                </li>
+                                                <li >
+                                                    <a style=" font-size: 16px"data-toggle="tab" href="#register" role="tab" aria-controls="info" aria-selected="false">Register</a>
+                                                </li>
+                                               
+                                            </ul>
+                                        </div>
+
+                                        <div class="tab-content">
+
+                                            <div class="tab-pane fade show active" id="login" role="tabpanel" >
+                                                     <div class="account_form">
+                                                      <form>
+                                                          <center>
+                                                              <div class="" style="width: 100%; border-radius: 5px;  background-color: #f44336; opacity: 0.7; color: white;">
+                                                                  <p id="login_error_msg"></p>
+                                                              </div>
+                                                          </center>
+                                                          <p>   
+                                                              <label>Username <span>*</span></label>
+                                                              <input type="text" name="username" id="username" placeholder="Username" required>
+                                                           </p>
+                                                           <p>   
+                                                              <label>Passwords <span>*</span></label>
+                                                              <input type="password" name="password" id="password" placeholder="Password" required>
+                                                           </p>   
+                                                          <div class="login_submit">
+                                                              <label for="remember">
+                                                                  <br>
+                                                                  <input id="remember" name="remember" type="checkbox">
+                                                                  Remember me
+                                                              </label>
+                                                              <a href="#" id="login_process" style="float: right;"><button>login</button></a>
+
+                                                          </div>
+                                                      </form>
+                                                    </div>
+                                            </div>
+
+                                            
+                                            <div class="tab-pane fade" id="register" role="tabpanel" >
+                                                    <div class="account_form">
+                                                    <form>
+                                                        <center>
+                                                            <div class="" style="width: 100%; border-radius: 5px; background-color: #f44336; opacity: 0.7; color: white;">
+                                                                <p id="register_error_msg"></p>
+                                                            </div>
+                                                        </center>
+                                                            <p>   
+                                                            <label>Username  <span>*</span></label>
+                                                            <input type="text" name="input_username" id="input_username" placeholder="Username" required>
+                                                            </p>
+                                                            <p>   
+                                                            <label>Email address  <span>*</span></label>
+                                                            <input type="email" name="input_email" id="input_email" placeholder="Email" required>
+                                                            </p>
+                                                            
+                                                            <label>Passwords <span>*</span></label>
+                                                            <input type="password" name="input_password" id="input_password" placeholder="Password" title="Password must atleast one number and one uppercase and lowercase letter, one special character and 8 or more characters." required>
+                                                            <br><br>
+                                                          
+                                                            <div class="login_submit" style="text-align: left; padding-top: 3px;">
+                                                             <label for="show-password">
+                                                                 <input type="checkbox" id="show-password" onclick="showPassword()">Show Password
+                                                            </label>
+                                                            <a href="#" id="register_process" style="float: right;"><button type="submit">Register</button></a>
+                                                            </div>
+                                                    </form>
+                                                    </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>   
+
+                                    </div>
+                                </div>                              
+
+                                </div>
+                              </div>

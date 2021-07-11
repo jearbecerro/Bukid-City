@@ -1,0 +1,178 @@
+{% include '/admin/index/navbar.html' %}  
+{% include '/admin/index/sidebar.html' %}  
+{% include '/admin/index/content-wrapper.html' %} 
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+
+
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h2 align="center">
+                    Bukid City
+                  </h2>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                  <br>
+                  <address>
+                    <strong style="font-size: 20px;">Bukid Agri Trading</strong><br>
+                    www.bukidcity.com<br>
+                    Address: <br>
+                    Phone: <br>
+                    Email: 
+                  </address>
+                </div>
+
+                <div class="col-sm-4 invoice-col">
+                  <br>
+                  <address>
+                    <strong style="font-size: 20px;">Je Ar Becerro</strong><br>
+                    Consumer<br>
+                    P-17, Mahay, Butuan City<br>
+                    Phone: 09101064727<br>
+                    Email: jearbecerro@gmail.com
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  <br>
+                  <address>
+                    <strong style="font-size: 20px;">Payout Summary</strong><br>
+                    Date: August 15, 2020 <br>
+                    Direct Sales: ₱ 2,000.00 | Qty: 3<br>
+                    Sales Match Bonus: ₱ 2,000.00 | Qty: 3<br>
+                    Gross Payout: ₱ 4,000.00 <br>
+                  </address>
+                </div>
+              </div>
+              <!-- /.row -->
+              <hr>
+              <!-- Table row -->
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <p>Direct Sales</p>
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Entry Date</th>
+                      <th>Package</th>
+                      <th>Commision</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>Je Ar Becerro</td>
+                      <td>August 14, 2020</td>
+                      <td>Kabuhayan Basket 2899</td>
+                      <td>₱ 500.00</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <hr>
+              <!-- Table row -->
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <p>Unilvel Bonus Points</p>
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>Names</th>
+                      <th>Purchased Value</th>
+                      <th>Unilevel Points</th>
+                      <th></th>
+                      <th>Commision</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>Je Ar Becerro,
+                        <br> Rolando Becerro</td>
+                      <td>August 15, 2020</td>
+                      <td>Randy G. CLores</td>
+                      <td>Left</td>
+                      <td>Kabuhayan Basket 2899,
+                        <br>Kabuhayan Basket 2899</td>
+                      <td>₱ 500.00</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+              <br>
+              <hr>
+              <br>
+              <div class="row">
+                <!-- accepted payments column -->
+                <div class="col-6">
+                  <p class="lead">Payout Methods:</p>
+                  <img src="{{ url_for('static', filename='admin/dist/img/credit/visa.png') }}" alt="Visa">
+                  <img src="{{ url_for('static', filename='admin/dist/img/credit/mastercard.png') }}" alt="Mastercard">
+                  <img src="{{ url_for('static', filename='admin/dist/img/credit/american-express.png') }}" alt="American Express">
+                  <img src="{{ url_for('static', filename='admin/dist/img/credit/paypal2.png') }}" alt="Paypal">
+
+                  <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                  </p>
+                </div>
+                <!-- /.col -->
+                <div class="col-6">
+
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <th style="width:50%">Gross Payout:</th>
+                        <td>₱ 4,000.00</td>
+                      </tr>
+                      <tr>
+                        <th> &nbsp&nbsp&nbsp&nbsp Tax (3%)</th>
+                        <td>₱ 10.20</td>
+                      </tr>
+                      <tr>
+                        <th>  &nbsp&nbsp&nbsp&nbsp Service Fee:</th>
+                        <td>₱ 9.80</td>
+                      </tr>
+                      <tr>
+                        <th>Total:</th>
+                        <td>₱ 1980.00</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+              <div class="row no-print">
+                <div class="col-12">
+                  <button type="button" class="btn btn-success float-right"  onclick="window.print()" ><i class="fas fa-print"></i> Print
+                  </button>
+                  <button type="button" class="btn btn-primary float-right"  style="margin-right: 5px;">
+                    <i class="fas fa-download"></i> Generate PDF
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% include '/admin/index/footer.html' %}

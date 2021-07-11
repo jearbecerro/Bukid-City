@@ -1,0 +1,91 @@
+{% include '/ecommerce/index/header.html' %}
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">   
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <h3>Frequently Ask Questions</h3>
+                            <li><a href="/">home</a></li>
+                            <li>FAQ's</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>         
+    </div>
+    <!--breadcrumbs area end-->
+    
+    <!--faq area start-->
+    <div class="faq_content_area">
+        <div class="container">   
+            <div class="row">
+                <div class="col-12">
+                    <div class="faq_content_wrapper">
+                        <h4>Below are frequently asked questions, you may find the answer for yourself</h4>
+                        <p>Feel free to ask question that you may desire. You can <a href="/contact"><b>contact</b></a> us directly for more information.</p>
+
+                    </div>
+                </div>
+            </div> 
+        </div>    
+    </div>
+     <!--Accordion area-->
+    <div class="accordion_area">
+        <div class="container">
+            <div class="row">
+            <div class="col-12"> 
+                <div id="accordion" class="card__accordion">
+                  <div class="card card_dipult">
+                    <div class="card-header card_accor" id="headingOne">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Ask questions to our facebook page. You can directly message us or you can comment your questions here.
+
+                          <i class="fa fa-plus"></i>
+                          <i class="fa fa-minus"></i>
+
+                        </button>
+
+                    </div>
+                    <div id="fb-root"></div>
+                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=496177857595304&autoLogAppEvents=1" nonce="QzsZiRrb"></script>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                      <div class="card-body">
+                            <div align="center">
+                           <p>Our Facebook Frequently Ask Questions post!</p>
+                           <div class="fb-post" data-href="https://web.facebook.com/BukidCity/posts/131180721948333" data-show-text="true" data-width=""><blockquote cite="https://developers.facebook.com/BukidCity/posts/131180721948333" class="fb-xfbml-parse-ignore"><p>Hey you! Food lovers 😁
+                            Our eCommerce will be available sooner!!
+
+                            Feel free to ask questions?</p>Posted by <a href="https://www.facebook.com/BukidCity/">Bukid City</a> on&nbsp;<a href="https://developers.facebook.com/BukidCity/posts/131180721948333">Saturday, June 27, 2020</a></blockquote></div>
+                            </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card  card_dipult" hidden>
+                    <div class="card-header card_accor" id="headingTwo">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          
+                           <i class="fa fa-plus"></i>
+                           <i class="fa fa-minus"></i>
+
+                        </button>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                      <div class="card-body">
+                        <p></p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!--Accordion area end-->
+    <!--faq area end-->
+{% include '/ecommerce/index/footer.html' %}

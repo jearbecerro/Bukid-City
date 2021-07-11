@@ -1,0 +1,78 @@
+								<div class="product_info_content">
+                                  {% include '/ecommerce/shop-pick-up-center/search-product.html' %}
+                                  {% include '/ecommerce/shop-pick-up-center/shop-tool-bar.html' %}  
+
+                                  <div id="products_content_render" class="row shop_wrapper">
+                                  {% for product in products %}
+                                      <div class="col-lg-3 col-md-4 col-sm-6 col-6 ">
+                                          <div class="single_product">
+                                              <div class="product_thumb">
+                                                <a class="primary_img" class="zoomWrapper single-zoom" href="/product/{{ product.name }}"><img src="{{ url_for('static', filename = 'ecommerce/img/product/'+product.image1 ) }}" alt="{{ product.name }}" style="max-width: 250px;"></a>
+
+                                                <a class="secondary_img" href="/product/{{ product.name }}"><img src="{{ url_for('static', filename = 'ecommerce/img/product/'+product.image2 ) }}" alt="{{ product.name }}" style="max-width: 250px;"></a>
+                                              {% if product.stock  == 0 %}
+                                              <div class="label_product">
+                                                <span class="label_sale" style="width: auto; background-color:  rgba(0,0,0,0.5);">Not Available</span>
+                                              </div>        
+                                              {% else %}
+                                              <div class="label_product">
+                                                  <span class="label_sale" style="width: auto; background-color:  rgba(rgba(123, 239, 178, 0.5));">Available</span>
+                                              </div>
+                                              <div class="action_links" area-hidden="true">
+                                                  <ul>
+                                                     {% if account is not none %}   
+                                                          <li  class="add_to_cart"><a onclick="add_to_cart('{{ product._id }}')" title="Add to cart" ><span class="lnr lnr-cart"></span> </a></li>
+                                                      {% else %}
+                                                          <li  class="add_to_cart"><a title="Add to cart" data-toggle="modal" data-target="#login_first" ><span class="lnr lnr-cart"></span> </a></li>
+                                                      {%endif %}
+                                                     
+
+                                                  </ul>
+                                              </div>
+                                              
+                                          {% endif %}
+                                    </div>
+
+                                    <div class="product_content grid_content">
+                                            <h4 class="product_name"><a href="#">{{ product.name }}</a></h4>
+                                            <p>Category: <a>{{ product.category }}</a></p>
+                                            <div class="price_box"> 
+                                                <p><a href="#" title="Price"></a><span class="current_price">₱ {{ product.price }}</span>
+                                                <a href="#" title="Discounted Price" style="color: red;"> </a><span class="old_price">₱ {{ product.undiscounted_price }}</span></p>
+                                            </div>
+                                    </div>
+
+                                    <div class="product_content list_content" align="center">
+                                           <h4 class="product_name"><a href="#"><b>{{ product.name }}</b></a></h4>
+                                            <p>Category: <a>{{ product.category }}</a></p>
+                                            <div class="price_box"> 
+                                                <span class="current_price">₱ {{ product.price }}</span>
+                                                <span class="old_price">₱ {{ product.undiscounted_price }}</span>
+                                            </div>
+                                            <div class="product_desc">
+                                                <p>{{ product.long_desc }}</p>
+                                            </div>
+
+                                            <div class="modal_add_to_cart">
+                                        </div>   
+                                            <div class="action_links list_action_right">
+                                              <ul>
+                                                {% if account is not none %}   
+                                                          <li  class="add_to_cart"><a onclick="add_to_cart('{{ product._id }}')" title="Add to cart" ><span class="lnr lnr-cart"></span> </a></li>
+                                                      {% else %}
+                                                          <li  class="add_to_cart"><a title="Add to cart" data-toggle="modal" data-target="#login_first" ><span class="lnr lnr-cart"></span> </a></li>
+                                                      {%endif %}
+                                              </ul>
+                                            </div>
+                                             
+                                  </div>
+
+                                </div>
+                            </div>   
+                          {% endfor %}      
+                              
+                        </div>
+                        <div id="products_content_async"  class="row shop_wrapper">
+                        </div>    
+                        {% include '/ecommerce/shop-pick-up-center/shop-pagination.html' %}
+                        </div>    

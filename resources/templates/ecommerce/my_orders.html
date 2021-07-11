@@ -1,0 +1,249 @@
+{% include '/ecommerce/index/header.html' %}
+
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.css') }}">
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">   
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                 <h3>{{ username }}'s Orders</h3>
+                 <ul>
+                    <li><a href="/">home</a></li>
+                    <li>Orders</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>         
+</div>
+<!--breadcrumbs area end-->
+
+<section class="main_content_area">
+    <div class="container">   
+        <div class="account_dashboard">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <!-- Nav tabs -->
+                    <div class="dashboard_tab_button">
+                        <ul role="tablist" class="nav flex-column dashboard-list">
+                            <li><a href="#my_orders" data-toggle="tab" class="nav-link active">My Orders</a></li>
+                            <li> <a href="#order_list" data-toggle="tab" class="nav-link">Order List</a></li>
+                        </ul>
+                    </div>    
+                </div>
+                <div class="col-sm-12 col-md-9 col-lg-9">
+                    <!-- Tab panes -->
+                    <div class="tab-content dashboard_content">
+                        <div class="tab-pane fade show active" id="my_orders">
+                            <!--login area start-->
+                            <div class="account_form">
+
+                                <form>
+                                    <h2 style="text-align: center;">My Order</h2>
+
+                                    <!-- if length of ordered prodocut is greater than 5 height = 600px overflow auto -->
+                                    {% for order in specific_order %}
+                                    {% if order.product_ordered|length >= 8 %}
+                                    <div style="height:750px; overflow: auto;">
+                                        {% else %}
+                                        <div style="height:auto; overflow: auto;">
+                                            {% endif %}
+
+                                            <div style="float:left;">
+                                                <p style="float:left; font-size: 11px;" ><b>Name:</b> {{ order.buyer }}<br><b>Address:</b> {{ order.delivery_address }}<br><b>Phone:</b> {{ order.contact_number }}</p>
+                                            </div>
+                                            <p style="float:right; font-size: 11px; padding-right: 10px;">{{ order.date }}</p>
+                                            <br><br>
+
+                                            <div style="float:right; padding-bottom: 10px;">
+                                                <div class="tag_widget">
+                                                    <ul>
+                                                        {% if order.status == 'Canceled' %}
+                                                        <li><a href="#">🔂 Reorder</a></li>
+                                                        {% endif %}
+
+                                                        {% if order.status == 'Processing' %}
+                                                        <li><a href="#" onclick="cancel_order('{{ order_id }}','{{ username }}','buyer','')" >❌ Cancel Order</a></li>
+                                                        {% endif %}
+
+                                                        {% if order.status == 'Delivered' %}
+                                                        <li><a href="#" class="ion-social-facebook">
+                                                        Share Bukid City</a> </li>
+                                                        {% endif %}
+
+                                                        {% if order.status == 'Transporting' %}
+                                                        <p style="font-size: 12px;"><i>Your order is on delivery.....</i></p>
+                                                        {% endif %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style=" vertical-align: middle; text-align: center;">Image</th>
+                                                        <th style=" vertical-align: middle;  text-align: center;">Product/Qty</th>
+                                                        <th style=" vertical-align: middle;  text-align: center;">Price</th>
+                                                        <th style=" vertical-align: middle;  text-align: center;">Total Price</th>      
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for items in order.product_ordered %}
+                                                    <tr>
+                                                        <td style=" vertical-align: middle;  text-align: center;"><img style="width: 80px; height: 70px; max-width: 100px;" src="{{ url_for('static', filename='ecommerce/img/product/'+items.img) }}"></td>
+                                                        <td style=" vertical-align: middle;  text-align: center;">{{ items.product_name }} x{{ items.qty }}</td>
+                                                        <td style=" vertical-align: middle;  text-align: center;">₱ {{ items.price }}</td>
+                                                        <td style=" vertical-align: middle;  text-align: center;">₱ {{ items.total_price }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            <p style="float:left; font-size: 15px; padding-left:10px;">Status: <b>{{ order.status }}</b> 
+
+                                                <br>
+                                                <i style="font-size: 10px;">Processing ➡ Transporting ➡ Delivered</i></p>
+                                                
+                                                <p style="float:right; font-size: 15px; padding-right: 10px;">Total: <b>₱ {{ order.total }}</b><br>
+                                                    <i style="font-size: 10px;">Delivery Fee ₱0 to ₱100.00</i></p>
+                                                    <br>
+                                                </div>
+                                                {% if order.status == 'Delivered' %}
+                                                <center><p><b>DELIVERED</b></p></center>
+                                                {% endif %}
+                                            </form>
+
+                                            {% endfor %}
+                                        </div>  
+
+                                    </div>
+
+                                    <div class="tab-pane fade show" id="order_list">
+                                        <div class="account_form">
+                                            <h3 align="center">My Order List</h3>  
+                                            {% if order_count >= 4%}
+                                            <form style="height:400px; overflow: auto;">    
+                                                {% else %}
+                                                <form style="height: auto;  overflow: auto;">   
+                                                    {% endif %}
+
+                                                    <table class="table" style="overflow:auto;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="text-align: left;vertical-align: middle;">Date</th>
+                                                                <th style="text-align: center;vertical-align: middle;">Orders</th>
+                                                                <th style="text-align: center;vertical-align: middle;">Status</th>
+                                                                <th style="text-align: center;vertical-align: middle;">Total</th>
+                                                                <th style="text-align: center;vertical-align: middle;">Actions</th>                
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for order in orders %}
+                                                            <tr style="padding: 20px;">
+                                                                <td style="text-align: left;vertical-align: middle;">{{ order.date }}</td>
+
+                                                                {% if order.product_ordered|length > 2 %}
+                                                                <td style="text-align: center;vertical-align: middle;">
+                                                                    {% for items in order.product_ordered[0:2] %}
+                                                                    {{ items.product_name }} <b>x {{ items.qty }}</b>
+                                                                    <br>
+                                                                    {% endfor %}
+                                                                    ... +{{ order.product_ordered|length - 2 }} more
+                                                                </td>
+
+                                                                {% else %}
+                                                                <td style="text-align: center;vertical-align: middle;">
+                                                                    {% for items in order.product_ordered %}
+                                                                    {{ items.product_name }} <b>x {{ items.qty }}</b>
+                                                                    <br>
+                                                                    {% endfor %}
+                                                                </td>
+
+                                                                {% endif %}
+                                                                <td style="text-align: center;vertical-align: middle;"><span class="success">{{ order.status }}</span></td>
+
+                                                                <td style="text-align: center;vertical-align: middle;">₱{{ order.total }}</td>
+
+                                                                <td style="text-align: center;vertical-align: middle; color: green;"><a onclick="view_order('{{ order._id }}')">VIEW</a></td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+
+                                                    </table>
+                                                    <hr>
+                                                </form>
+
+                                            </div>    
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>          
+                </section>  
+                <script src="{{ url_for('static', filename='ecommerce/js/own/cart_process.js') }}"></script>
+                <script src="{{ url_for('static', filename='ecommerce/js/own/view_order.js') }}"></script>
+                <script>
+                   function cancel_order(order_id, username, user, admin){
+                    const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 3000
+                  });
+
+                    Swal.fire({
+                      title: 'Are you sure?',
+                      text: "You can order anytime.",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'Yes, I will cancel my order.'
+                  }).then((result) => {
+                      if (result.value) {
+                        $.getJSON('/cancel_order', {  
+                          order_id: order_id,
+                          username: username,
+                          user: user,
+                          admin: admin
+                      }, function(data) {
+                          if(data.error){
+                             Toast.fire({
+                                icon: 'error',
+                                title: "&nbspDon't modify the values!"
+                            })
+                         }
+                         if (data.success == 'True'){
+                             Swal.fire(
+                                'Canceled!',
+                                'The order has been canceled.'
+                                )
+                             var seconds = 2;
+                             var timer = setInterval(function() {
+                                seconds--;
+                                if(seconds == 0) {
+                                  clearInterval(timer);
+                                  if (data.admin == 'True'){
+                                    window.location.href = '/orders-management';
+                                }
+                                if (data.admin == 'False'){
+                                    window.location.href = '/myaccount';
+                                }
+                            }
+                        }, 1000);
+
+                         }
+                     });  
+                    }
+                })
+              }
+          </script>
+          <script src="{{ url_for('static', filename='admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+          <script src="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.js') }}"></script>
+          {% include '/ecommerce/index/footer.html' %}

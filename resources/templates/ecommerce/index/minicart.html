@@ -1,0 +1,69 @@
+                                        <div class="mini_cart">                
+                                            
+                                            <div class="cart_gallery">
+                                                <div class="cart_close">
+                                                    <div class="cart_text">
+                                                        <h3>mini cart</h3>
+                                                    </div>
+                                                    <div class="mini_cart_close">
+                                                        <a href="javascript:void(0)"><i class="icon-x"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div id="cart_item_render">
+                                                {% if account is not none %}  
+                                                    {% if cart is not none %}  
+                                                        {% for items in cart  %}
+                                                        <div class="cart_item">
+
+                                                           <div class="cart_img">
+                                                               <a href="/mycart"><img src="{{ url_for('static', filename='ecommerce/img/product/'+items.img) }}" alt=""></a>
+                                                           </div>
+                                                            <div class="cart_info">
+                                                                <a href="/mycart">{{ items.product_name }}</a>
+                                                                <p>{{ items.qty }} x <span> ₱{{ items.price }} </span></p>
+                                                            </div>
+                                                            
+                                                          
+                                                        </div>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                    
+
+                                                {% endif %}
+                                                </div>
+                                                <div  id="cart_item_async">
+                                                </div>
+                                                <br>
+                                                <p id="more"></p>
+
+                                            <div class="mini_cart_table">
+                                                <div class="cart_table_border">
+                                                    <div class="cart_total">
+                                                        <span>Sub total:</span>
+                                                        <span class="price" id="subtotal">₱ {{ subtotal }}</span>
+                                                    </div>
+                                                     <div class="cart_total mt-10">
+                                                        <span>Delivery Fee:</span>
+                                                        <span class=""><i>after checkout</i></span>
+                                                    </div>
+                                                    <div class="cart_total mt-10">
+                                                        <span>Total:</span>
+                                                        <span class="price" id="total">₱ {{ subtotal }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mini_cart_footer">
+                                               <div class="cart_button">
+                                                    <a href="/mycart"><i class="fa fa-shopping-cart"></i> View cart</a>
+                                                </div>
+                                                <!--
+                                                <div class="cart_button">
+                                                    <a href="checkout.html"><i class="fa fa-sign-in"></i> Checkout</a>
+                                                </div>
+                                            -->
+                                            </div>
+                                            </div>
+                                            
+                                            
+                                        </div>

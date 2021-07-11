@@ -1,0 +1,787 @@
+{% include '/admin/index/navbar.html' %}  
+{% include '/admin/index/sidebar.html' %}  
+{% include '/admin/index/content-wrapper.html' %} 
+  <link rel="stylesheet" href="static/admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="static/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="static/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="static/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="static/admin/plugins/toastr/toastr.min.css">
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+
+                <div class="text-center"> 
+                  <img class="profile-user-img img-fluid img-circle" 
+                       style="border-color: 
+                       {% if career == 'Consumer' %}
+                       gray
+                       {% elif career == 'Apprentice' %}
+                       lightblue
+                       {% elif career == 'Associate' %}
+                       yellowgreen
+                       {% elif career == 'Supervisor' %}
+                       darkgreen
+                       {% elif career == 'Manager' %}
+                       violet
+                       {% elif career == 'Director' %}
+                       orange
+                       {% endif %}
+                       ;" 
+                       src="{{ url_for('static', filename='admin/dist/img/user2-160x160.jpg') }}"
+                       alt="User profile picture">
+                </div>
+
+                <h3 class="profile-username text-center">{{ member_name }}</h3>
+
+                <p class="text-muted text-center">{{ career }}</p>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>Direct Sales</b> <a class="float-right">{{ direct_sales }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Indirect Sales</b> <a class="float-right">{{ indirect_sales }}</a>
+                  </li>
+                  <a href="#" class="btn btn-primary btn-block" title="View Downline Profile"><b>Downline Profile</b></a>
+                </ul>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+
+            <!-- Personal Info Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Details</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> Farmers Club</strong>
+
+                <p class="text-muted">
+                  <small>Entry date:</small> {{ entry_date }}
+                  <small>Sponsor:</small> {{ sponsor }}
+                  <br> <small>Package Purchased:</small>
+                  <br> <u>{{ package_purchased }}</u>
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Contact Information</strong>
+
+                <p class="text-muted">
+                  <small>Address:</small> <br>{{ address }}
+                  <br>
+                  <small>Phone:</small> {{ phone }}
+                </p>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#career_path" data-toggle="tab">Career Path</a></li>
+                  <li class="nav-item"><a class="nav-link " href="#profile" data-toggle="tab">Profile</a></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content">
+
+                  <div class="active tab-pane" id="career_path">
+
+                    <div class="col-md-12 col-sm-12 col-12">
+                      <div class="info-box" style="background-color: lightblue; background-image: linear-gradient(to right, lightblue, yellowgreen 200%); ">
+
+                        <div class="info-box-content">
+                          <div class="row">
+                            <div class="col-6">
+                              <span class="info-box-text">Apprentice</span>
+                              <span class="info-box-number" title="Commissional Basket Points">450 CBP</span>
+                            </div>
+                            <div class="col-6">
+                              <span class="info-box-text" style="float: right;">Associate</span><br>
+                              <span class="info-box-number" title="Commissional Basket Points" style="float: right;">5,000 CBP</span>
+                            </div>
+                          </div>
+                          <div class="progress">
+                            <div class="progress-bar" style="width: 10%;"></div>
+                          </div>
+                          <span class="progress-description">
+                            4,550 CBP left toward Associate
+                          </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </div>
+                      <!-- /.info-box -->
+                    </div>
+                    <br>
+                    <div class="row">
+
+                      <div class="col-md-3 col-sm-6 col-12" data-toggle="modal" data-target="#consumer-modal">
+                        <div class="info-box" style="background-color: gray;">
+                          <div class="info-box-content" style="color: white;">
+                            <span class="info-box-text">Consumer</span>
+                            <span class="info-box-number" title="Commissional Basket Points">50 CBP</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--modal CONSUMER-->
+                      <div class="modal fade" id="consumer-modal">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Farmer's Consumer Club</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+
+                            <div class="modal-body">
+                              <center>
+                              How to avail?<br>
+                              Buy ₱ 1,498.00 Consumers Club Basket
+                              <br><br>
+                              Inclussion:
+                              <br>
+                              ₱ 1,500.00+ worth of products
+                              <br>
+                              5% - 10% discount <span class="Discount" style="font-size: 13px;" title="Discount on repeat purchase.">❔</span>
+                              <br>
+                              Online Farmers Consumer Club Account <span class="FarmersClubAccount" style="font-size: 13px;" title="Assist you with following your orders and sales.">❔</span>
+                              <br>
+                              50 CBP (Commissional Basket Points) <span class="CBP" style="font-size: 13px;" title="Commissional Basket Point CBP is an equivalent points of a package sell. For Consumer's Basket 1498 it is 50 CBP, Kabuhayan Basket 2998 it is 100 CBP and Business Basket 10,998 it is 300 CBP.">❔</span>
+                              </center>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3 col-sm-6 col-12" data-toggle="modal" data-target="#apprentice-modal">
+                        <div class="info-box" style="background-color: lightblue;">
+                          <div class="info-box-content" style="color: black;">
+                            <div class="ribbon-wrapper">
+                              <div class="ribbon bg-primary">
+                                <span title="10% Commission every sales">10%</span>
+                              </div>
+                            </div>
+                            <span class="info-box-text">Apprentice</span>
+                            <span class="info-box-number" title="Commissional Basket Points">100 CBP</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--modal APPRENTICE-->
+                      <div class="modal fade" id="apprentice-modal">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Apprentice</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+
+                            <div class="modal-body">
+                              <center>
+                              How to avail?<br>
+                              Buy ₱ 2,998.00 Kabuhayan Basket 100 CBP
+                              <br> or <br>
+                              Buy ₱ 10,998.00 Business Basket 300 CBP
+                              <br><br>
+                              Benefits:
+                              <br>
+                              10% commission on every personal and group sales
+                              <br>
+                              10% - 30% discount <span class="Discount" style="font-size: 13px;" title="Discount on repeat purchase.">❔</span>
+                              <br>
+                              Free Business Training
+                              <br>
+                              Car Incentives
+                              <br>
+                              Travel Incentives
+                              <br><br>
+                              Inclussion:
+                              <br>
+                              ₱ 3,000.00+ worth of products
+                              <br>
+                              Online Farmers Consumer Club Business Account <span class="FarmersClubAccount" style="font-size: 13px;" title="Assist you with following your orders and sales.">❔</span>
+                              <br>
+                              CBP (Commissional Basket Points) <span class="CBP" style="font-size: 13px;" title="Commissional Basket Point CBP is an equivalent points of a package purchased. For Consumer's Basket 1498 it is 50 CBP, Kabuhayan Basket 2998 it is 100 CBP and Business Basket 10,998 it is 300 CBP.">❔</span>
+                              <br>
+                              Global Bukid Bonus Pool (GBBP) <span class="GBBP" style="font-size: 13px;" title="Global Bukid Bonus Pool (GBBP) is a money back (₱ 4,998).<br> Whenever sell sum is more than or equivalent to ₱ 1,500.00 every month consistently you can get ₱ 416 rebates/cash back for 12 month duration.">❔</span>
+                              <br>
+
+                              </center>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="col-md-3 col-sm-6 col-12" data-toggle="modal" data-target="#associate-modal">
+                        <div class="info-box" style="background-color: yellowgreen;">
+                          <div class="info-box-content" style="color: black;">
+                            <div class="ribbon-wrapper">
+                              <div class="ribbon bg-primary">
+                                <span title="20% Commission every sales">20%</span>
+                              </div>
+                            </div>
+                            <span class="info-box-text">Associate</span>
+                            <span class="info-box-number" title="Commissional Basket Points">5,000 CBP</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--modal ASSOCIATE-->
+                      <div class="modal fade" id="associate-modal">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Associate</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+
+                            <div class="modal-body">
+                              <center>
+                              Requirements:<br>
+                              5,000 CBP (Commissional Basket Points) <span class="CBP" style="font-size: 13px;" title="Commissional Basket Point CBP is an equivalent points of a package purchased.">❔</span>
+                              <br>
+                              Direct and Group sales of <br>
+                              50 Kabuhayan Basket 2,998 (100 CBP) or <br>
+                              100 Consumers Basket 1,498 (50 CBP) or <br>
+                              17 Business Basket 10,998 (300 CBP) or <br>
+                              a combination of all.
+                              <br><br>
+                              Benefits:
+                              <br>
+                              20% commission on direct sales<br>
+                              10% commission on indirect group sales (Kabuhayan or Business Basket)<br>
+                              12% commission on indirect group sales (Consumers Basket)<br>
+                              Global Bukid Bonus Pool (GBBP) <span class="GBBP" style="font-size: 13px;" title="Global Bukid Bonus Pool (GBBP) is a money back (₱ 4,998). Whenever product amount purchased is more than or equivalent to ₱ 1,500.00 every month consistently you can get ₱ 416 rebates/cash back for 12 month duration.">❔</span>
+                              <br>
+                              10% - 30% discount <span class="Discount" style="font-size: 13px;" title="Discount on repeat purchase.">❔</span>
+                              <br>
+                              Free Business Training
+                              <br>
+                              Car Incentives
+                              <br>
+                              Travel Incentives
+                              </center>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3 col-sm-6 col-12" data-toggle="modal" data-target="#supervisor-modal">
+                        <div class="info-box" style="background-color: darkgreen;">
+                          <div class="info-box-content" style="color: white;">
+                            <div class="ribbon-wrapper">
+                              <div class="ribbon bg-primary">
+                                <span title="25% Commission every sales">25%</span>
+                              </div>
+                            </div>
+                            <span class="info-box-text">Supervisor</span>
+                            <span class="info-box-number" title="Commissional Basket Points">17,000 CBP</span>
+                          </div>
+                        </div>
+                      </div>
+
+                       <!--modal SUPERVISOR-->
+                      <div class="modal fade" id="supervisor-modal">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Supervisor</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+
+                            <div class="modal-body">
+                              <center>
+                              Requirements:<br>
+                              17,000 CBP (Commissional Basket Points) <span class="CBP" style="font-size: 13px;" title="Commissional Basket Point CBP is an equivalent points of a package purchased.">❔</span>
+                              <br>
+                              Direct and Group sales of <br>
+                              170 Kabuhayan Basket 2,998 (100 CBP) or <br>
+                              340 Consumers Basket 1,498 (50 CBP) or <br>
+                              57 Business Basket 10,998 (300 CBP) or <br>
+                              a combination of all.
+                              <br><br>
+                              Benefits:
+                              <br>
+                              25% commission on direct sales<br>
+                              5% commission on associate and associate's downline sales <br>
+                              15% commission on apprentice and apprentice's downline sales<br>
+                              12% commission on indirect group sales (Consumers Basket)<br>
+                              Global Bukid Bonus Pool (GBBP) <span class="GBBP" style="font-size: 13px;" title="Global Bukid Bonus Pool (GBBP) is a money back (₱ 4,998). Whenever product amount purchased is more than or equivalent to ₱ 1,500.00 every month consistently you can get ₱ 416 rebates/cash back for 12 month duration.">❔</span>
+                              <br>
+                              10% - 30% discount <span class="Discount" style="font-size: 13px;" title="Discount on repeat purchase.">❔</span>
+                              <br>
+                              Free Business Training
+                              <br>
+                              Car Incentives
+                              <br>
+                              Travel Incentives
+                              </center>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3 col-sm-6 col-12" data-toggle="modal" data-target="#manager-modal">
+                        <div class="info-box" style="background-color: violet;">
+                          <div class="info-box-content" style="color: white;">
+                            <div class="ribbon-wrapper">
+                              <div class="ribbon bg-primary">
+                                <span title="28% Commission every sales">28%</span>
+                              </div>
+                            </div>
+                            <span class="info-box-text">Manager</span>
+                            <span class="info-box-number" title="Commissional Basket Points">35,000 CBP</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--modal Manager-->
+                      <div class="modal fade" id="manager-modal">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Manager</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+
+                            <div class="modal-body">
+                              <center>
+                              Requirements:<br>
+                              35,000 CBP (Commissional Basket Points) <span class="CBP" style="font-size: 13px;" title="Commissional Basket Point CBP is an equivalent points of a package purchased.">❔</span>
+                              <br>
+                              Direct and Group sales of <br>
+                              350 Kabuhayan Basket 2,998 (100 CBP) or <br>
+                              700 Consumers Basket 1,498 (50 CBP) or <br>
+                              117 Business Basket 10,998 (300 CBP) or <br>
+                              a combination of all.
+                              <br><br>
+                              Benefits:
+                              <br>
+                              28% commission on direct sales<br>
+                              3% commission on supervisor and supervisor's downline sales <br>
+                              8% commission on associate and associate's downline sales <br>
+                              18% commission on apprentice and apprentice's downline sales<br>
+                              18% commission on indirect group sales (Consumers Basket)<br>
+                              Global Bukid Bonus Pool (GBBP) <span class="GBBP" style="font-size: 13px;" title="Global Bukid Bonus Pool (GBBP) is a money back (₱ 4,998). Whenever product amount purchased is more than or equivalent to ₱ 1,500.00 every month consistently you can get ₱ 416 rebates/cash back for 12 month duration.">❔</span>
+                              <br>
+                              10% - 30% discount <span class="Discount" style="font-size: 13px;" title="Discount on repeat purchase.">❔</span>
+                              <br>
+                              Free Business Training
+                              <br>
+                              Car Incentives
+                              <br>
+                              Travel Incentives
+                              </center>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3 col-sm-6 col-12" data-toggle="modal" data-target="#director-modal">
+                        <div class="info-box" style="background-color: orange;">
+                          <div class="info-box-content" style="color: white;">
+                            <div class="ribbon-wrapper">
+                              <div class="ribbon bg-primary">
+                                <span title="30% Commission every sales">30%</span>
+                              </div>
+                            </div>
+                            <span class="info-box-text">Director</span>
+                            <span class="info-box-number" title="Commissional Basket Points">75,000 CBP</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--modal Director-->
+                      <div class="modal fade" id="director-modal">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Director</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+
+                            <div class="modal-body">
+                              <center>
+                              Requirements:<br>
+                              75,000 CBP (Commissional Basket Points) <span class="CBP" style="font-size: 13px;" title="Commissional Basket Point CBP is an equivalent points of a package purchased.">❔</span>
+                              <br>
+                              Direct and Group sales of <br>
+                              750 Kabuhayan Basket 2,998 (100 CBP) or <br>
+                              1,500 Consumers Basket 1,498 (50 CBP) or <br>
+                              250 Business Basket 10,998 (300 CBP) or <br>
+                              a combination of all.
+                              <br><br>
+                              Benefits:
+                              <br>
+                              30% commission on direct sales<br>
+                              2% commission on manager and manager's downline sales <br>
+                              5% commission on supervisor and supervisor's downline sales <br>
+                              10% commission on associate and associate's downline sales <br>
+                              20% commission on apprentice and apprentice's downline sales<br>
+                              20% commission on indirect group sales (Consumers Basket)<br>
+                              Global Bukid Bonus Pool (GBBP) <span class="GBBP" style="font-size: 13px;" title="Global Bukid Bonus Pool (GBBP) is a money back (₱ 4,998). Whenever product amount purchased is more than or equivalent to ₱ 1,500.00 every month consistently you can get ₱ 416 rebates/cash back for 12 month duration.">❔</span>
+                              <br>
+                              10% - 30% discount <span class="Discount" style="font-size: 13px;" title="Discount on repeat purchase.">❔</span>
+                              <br>
+                              Free Business Training
+                              <br>
+                              Car Incentives
+                              <br>
+                              Travel Incentives
+                              </center>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="tab-pane" id="profile">
+
+                    <div class="card card-primary">
+                      <div class="card-header border-transparent">
+                        <h3 class="card-title">Personal Information</h3>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                        <div class="card-body">
+                          <div class="text-center">
+                            <label for="filename">
+                            <img class="profile-user-img img-fluid img-circle" 
+
+                            style="border-color: 
+                                 {% if career == 'Consumer' %}
+                                 gray
+                                 {% elif career == 'Apprentice' %}
+                                 lightblue
+                                 {% elif career == 'Associate' %}
+                                 yellowgreen
+                                 {% elif career == 'Supervisor' %}
+                                 darkgreen
+                                 {% elif career == 'Manager' %}
+                                 violet
+                                 {% elif career == 'Director' %}
+                                 orange
+                                 {% endif %};
+                                 height: 150px; width: 150px;" 
+                                 src="static/admin/dist/img/user4-128x128.jpg"
+                                 alt="User profile picture" id="profilePicture" name="profilePicture"></label>
+                          </div>
+                          
+                          <div class="form-group">
+                            <label>Profile Picture</label>
+
+                            <form id="uploadform" method="post" enctype="multipart/form-data">
+                            <div class="input-group">
+                              <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="filename" id="filename">
+                                <label class="custom-file-label" for="filename" >Change</label>
+                              </div>
+                              <div class="input-group-append">
+                                <button class="input-group-text" id="change">Change</button>
+                              </div>
+                            </div>
+                            </form>
+
+                          </div>
+
+                          <script>
+                          $(function() {
+                            $('#change').click(function() {
+                                event.preventDefault();
+                                var form_data = new FormData($('#uploadform')[0]);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/uploadajax',
+                                    data: form_data,
+                                    contentType: false,
+                                    processData: false,
+                                    dataType: 'json'
+                                }).done(function(data, textStatus, jqXHR){
+                                    console.log(data);
+                                    console.log(textStatus);
+                                    console.log(jqXHR);
+                                    console.log('Success!');
+                                    $("#profilePicture").attr('src', data.profilePicture);
+                                    if (data.notAllowed == 'True') {
+                                      alert('File Not Allowed. Please upload an image with .jpg .jpeg or .png extensions.')
+                                    }
+                                }).fail(function(data){
+                                    alert('error!');
+                                });
+                            });
+                          }); 
+                          </script>
+
+                          <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ member_name }}" disabled title="If by chance your name spelled incorrect, please contact Admin for the procedure.">
+                          </div>
+                          <div class="form-group">
+                            <label>Gender</label>
+                            <select  class="form-control" id="gender" name="gender" required>
+
+                              {% if gender == 'Male' %}
+                              <option selected="true">Male</option>
+                              <option>Female</option>
+                              {% elif gender == 'Female' %}
+                              <option>Male</option>
+                              <option selected="true">Female</option>
+                              {% endif %}
+                              
+                            </select>
+                          </div>
+
+                          <div class="form-group">
+                          <label>Birthdate:</label>
+                          <div class="input-group date" id="birthdate">
+                                <input type="date" class="form-control datetimepicker-input" value="{{ birthdate }}" />
+                            </div>
+                          </div>
+                          <a href="#" class="btn btn-success float-right">Save</a>
+                        </div>
+
+                        <div class="card-footer">
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool float-right" data-card-widget="collapse">
+                            <i class="fas fa-minus" style="color: black;"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card card-warning">
+                      <div class="card-header border-transparent">
+                        <h3 class="card-title">Contact Information</h3>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <!-- /.card-header -->
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="text" class="form-control" id="contact" name="contact" value="{{ phone }}">
+                          </div>
+                          <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ email }}">
+                          </div>
+
+                          <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" id="street" name="street" value="{{ street }}">
+                            <br>
+                            <select  class="form-control" name="province" id="province" required>
+                                {% if users_province == '' %}   
+                                  {% for province in provinces %}
+                                    <option value="{{ province.provCode }}">{{ province.provDesc }}</option>
+                                  {% endfor %}
+
+                                {% else %}    
+                                  {% for province in provinces %}
+                                    <option value="{{ province.provCode }}" {% if province.provDesc==users_province %} selected="selected"{% endif %}> {{ province.provDesc }} </option>
+                                  {% endfor %}
+                                {%endif %}
+                            </select>
+                            <br>
+                            <select disabled class="form-control" name="citymun" id="citymun" required>
+                              <option value=""> {{ users_citymun }}</option>
+                            </select>
+                            <br>
+                            <select disabled class="form-control" name="barangay" id="barangay" required>
+                              <option value=""> {{ users_barangay }}</option>
+                            </select>
+                          </div>
+                          <a href="#" class="btn btn-success float-right">Save</a>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool float-right" data-card-widget="collapse">
+                                <i class="fas fa-minus" style="color: black;"></i>
+                              </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                  </div>
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+                    <div class="card">
+                      <div class="card-header border-transparent">
+                        <h3 class="card-title">Products Purchased</h3>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                       <div class="card-body">
+                        <table id="purchased" class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Points/Value</th>
+                            <th>Orders/Value</th>
+                            <th>Total</th>
+                          </tr>
+                          </thead>
+                          <tbody class="text-center py-0 align-middle">
+
+                          <tr>
+                            <td>August 15, 2020</td>
+                            <td>3,000/₱ 100</td>
+                            <td>Cabage 1kg x 1/₱ 100 ,<br> Cabage 1kg x 1/₱ 100</td>
+                            <td>₱ 1,200</td>
+                          </tr>
+
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                            <th>Date</th>
+                            <th>Points/Value</th>
+                            <th>Orders/Value</th>
+                            <th>Total</th>
+                          </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                    
+<script src="{{ url_for('static', filename='admin/js/address_dropdown.js') }}"></script>
+<!-- DataTables -->
+<script src="{{ url_for('static', filename='admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/toastr/toastr.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script>
+  $(document).ready(function () {
+    bsCustomFileInput.init();
+  });
+
+  $(function () {
+    $('#purchased').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+  
+  $(function() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 10000
+    });
+     $('.Discount').click(function() {
+      Toast.fire({
+        icon: 'info',
+        title: '&nbsp&nbsp&nbspDiscount on repeat purchase.'
+      })
+    });
+    
+    $('.FarmersClubAccount').click(function() {
+      Toast.fire({
+        icon: 'info',
+        title: '&nbspAssist you with following your orders and sales.'
+      })
+    });
+
+    $('.CBP').click(function() {
+      Toast.fire({
+        icon: 'info',
+        title: "&nbspCommissional Basket Point CBP is an equivalent points of a package sell."
+      })
+    });
+
+     $('.GBBP').click(function() {
+      Toast.fire({
+        icon: 'info',
+        title: "&nbspGlobal Bukid Bonus Pool (GBBP) is a money back (₱ 4,998).<br> Whenever product amount purchased is more than or equivalent to ₱ 1,500.00 every month consistently you can get ₱ 416 rebates/cash back for 12 month duration."
+      })
+    });
+
+  });
+  </script>
+{% include '/admin/index/footer.html' %} 

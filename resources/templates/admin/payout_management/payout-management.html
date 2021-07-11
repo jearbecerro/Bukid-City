@@ -1,0 +1,211 @@
+{% include '/admin/index/navbar.html' %}  
+{% include '/admin/index/sidebar.html' %}  
+{% include '/admin/index/content-wrapper.html' %} 
+  <link rel="stylesheet" href="static/admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="static/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="static/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="static/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="static/admin/plugins/toastr/toastr.min.css">
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-12">
+            <div class="card">
+
+              <div class="card-header border-transparent">
+                <h3 class="card-title">List of Payout</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="payout-tbl" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Career</th>
+                    <th>Status</th>
+                    <th>Date of Payout</th>
+                    <th>Direct Sales/Qty</th>
+                    <th>Unilevel Points/Value</th>
+                    <th>Total Amount</th>
+                    <th class="text-center">View</th>
+                  </tr>
+                  </thead>
+                  <tbody class="text-center py-0 align-middle">
+
+                  {% for product in products %}
+                  <tr>
+                    <td style="vertical-align: middle;">Je Ar Becerro</td>
+                    <td style="vertical-align: middle;">Consumer</td>
+                    <td style="vertical-align: middle;">Pending</td>
+                    <td style="vertical-align: middle;">August 15, 2020</td>
+                    <td style="vertical-align: middle;">₱ 800/2</td>
+                    <td style="vertical-align: middle;">₱ 1,200/3</td>
+                    <td style="vertical-align: middle;">₱ 2000</td>
+                    <td style="vertical-align: middle;">
+                      <div class="btn-group btn-group-sm">
+                        <a class="btn btn-info"  href="/payout-management/summary" target="_blank" title="Payout Summary"><i class="fas fa-eye"></i></a>
+                        &nbsp&nbsp
+                        <a class="btn btn-danger" href="#" title="Statement of Account"><i class="fas fa-folder"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Name</th>
+                    <th>Career</th>
+                    <th>Status</th>
+                    <th>Date of Payout</th>
+                    <th>Direct Sales/Qty</th>
+                    <th>Unilevel Points/Value</th>
+                    <th>Total Amount</th>
+                    <th>Summary</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+           <div class="col-12">
+            <div class="card">
+
+              <div class="card-header border-transparent">
+                <h3 class="card-title">List of Rendered Payout</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="payout-tbl-prev" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Career</th>
+                    <th>Status</th>
+                    <th>Date of Payout</th>
+                    <th>Direct Sales/Qty</th>
+                    <th>Unilevel Points/Value</th>
+                    <th>Total Amount</th>
+                    <th>Summary</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  <tr>
+                    <td>Je Ar Becerro</td>
+                    <td>Consumer</td>
+                    <td>Pending</td>
+                    <td>August 15, 2020</td>
+                    <td>₱ 800/2</td>
+                    <td>200 CSV/₱ 1,200</td>
+                    <td>₱ 2000</td>
+                    <td>
+                      <div class="btn-group btn-group-sm">
+                        <a class="btn btn-info" href="/payout-management/summary" target="_blank" title="Payout Summary"><i class="fas fa-eye"></i></a>
+                        &nbsp&nbsp
+                        <a class="btn btn-danger" href="#" title="Statement of Account"><i class="fas fa-folder"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Je Ar Becerro</td>
+                    <td>Consumer</td>
+                    <td>Pending</td>
+                    <td>August 15, 2020</td>
+                    <td>₱ 800/2</td>
+                    <td>200 CSV/₱ 1,200</td>
+                    <td>₱ 2000</td>
+                    <td>
+                      <div class="btn-group btn-group-sm">
+                        <a class="btn btn-info"  href="/payout-management/summary" target="_blank" title="Payout Summary"><i class="fas fa-eye"></i></a>
+                        &nbsp&nbsp
+                        <a class="btn btn-danger" href="#" title="Statement of Account"><i class="fas fa-folder"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Name</th>
+                    <th>Career</th>
+                    <th>Status</th>
+                    <th>Date of Payout</th>
+                    <th>Direct Sales/Qty</th>
+                    <th>Unilevel Points/Value</th>
+                    <th>Total Amount</th>
+                    <th>Summary</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+<!-- DataTables -->
+<script src="static/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="static/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="static/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="static/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+<script src="static/admin/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="static/admin/plugins/toastr/toastr.min.js"></script>
+                
+<script>
+  $(function () {
+    $('#payout-tbl').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+
+  $(function () {
+    $('#payout-tbl-prev').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+
+</script>
+
+{% include '/admin/index/footer.html' %} 
